@@ -2,6 +2,7 @@
 
 #include <string>
 
+/*! \class The base component structure, inherited from to create new components.*/
 class Component
 {
 public:

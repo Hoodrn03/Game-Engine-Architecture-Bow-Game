@@ -3,9 +3,16 @@
 #include <unordered_map>
 #include <typeindex>
 
+/*! \class An object in the game will be made of a single game object with one or more components attached to it
+*			a single object should only contain a Single Game Object.  
+*/
 class GameObject
 {
 public:
+
+	/*! \fn This will allow for the access of a single game object. 
+	*Param T the component to be accessed. 
+	*/
 	template <typename T>
 	T* getComponent()
 	{
@@ -23,6 +30,9 @@ public:
 		
 	}
 
+	/*! \fn Used to add a new compoent to this game object. 
+	*Param T the new component to add. 
+	*/
 	template <typename T>
 	void addComponent(T* comp)
 	{
@@ -35,6 +45,8 @@ public:
 	virtual void OnMessage(const std::string m) = 0;
 
 private:
+
+	/*! \var The list of components currently on this game object. */
 	std::unordered_map<std::type_index, Component*> m_components;
 };
 
