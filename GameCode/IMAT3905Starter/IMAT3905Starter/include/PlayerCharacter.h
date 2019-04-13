@@ -5,6 +5,7 @@
 #include "TransformComponent.h"
 #include "ModelComponent.h"
 #include "SceneStateComponent.h"
+#include "Gravity.h"
 
 /*! \class This will act as the player's main object. */
 class PlayerCharacter : public GameObject

@@ -1,26 +1,29 @@
 #include "PlayerCharacter.h"
 
 
-
-
-	// constructor
+// constructor
 PlayerCharacter::PlayerCharacter(Model* model, glm::vec3 position, glm::quat orientation)
-	{
+{
 		TransformComponent* tc = new TransformComponent(position, orientation);
 
 		addComponent(tc);
 		addComponent(new ModelComponent(model));
 		addComponent(new CameraComponent());
 		addComponent(new SceneStateComponent());
+		addComponent(new Gravity(this));
 		SetCameraPositionFromTransformComponent(tc);
-	}
+
+}
+
 PlayerCharacter::~PlayerCharacter()
 {
 }
 
 void PlayerCharacter::OnUpdate(float dt)
 {
+	getComponent<Gravity>()->OnUpdate(dt);
 }
+
 void PlayerCharacter::OnMessage(const std::string msg)
 {
 

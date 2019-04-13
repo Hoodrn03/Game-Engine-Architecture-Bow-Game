@@ -26,6 +26,8 @@ void ExampleGame::update(float dt)
 {
 	int desiredSceneIndex = m_scene->getPlayer()->getComponent<SceneStateComponent>()->GetSceneIndex();
 
+	m_scene->getPlayer()->OnUpdate(dt);
+
 	if (desiredSceneIndex != m_sceneIndex)
 	{
 		delete m_scene;
