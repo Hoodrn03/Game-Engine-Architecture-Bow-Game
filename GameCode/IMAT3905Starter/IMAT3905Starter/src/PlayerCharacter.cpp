@@ -9,6 +9,8 @@ PlayerCharacter::PlayerCharacter(Model* model, glm::vec3 position, glm::quat ori
 	addComponent(new CameraComponent());
 	addComponent(new SceneStateComponent());
 	SetCameraPositionFromTransformComponent(tc);
+
+	PassInPlayerState::SetPlayerPosition(position);
 }
 PlayerCharacter::~PlayerCharacter()
 {
@@ -16,35 +18,48 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::OnUpdate(float dt)
 {
+	//Dominic
+
 	//Since camera and turns will be switched automatically, I don't think camera will require any messages to be swithed on Onmessage function
 
-	if(m_CurrentTurnState.GetTurn() == Turn::PlayerTurn)
+	//Code to switch turns and camera
+
+	if (TurnState::m_currentTurn == Turn::PlayerTurn)
 	{
 		m_newCameraState = NewCameraViewState::PlayerView;
+
+		//Suggestion: Paste code to drag mouse to shoot from bow here, maybe as a function
+
+		//After Player pressed(released) to shoot, change turn
+		TurnState::m_currentTurn = Turn::WaitingTurn;
+		TurnState::m_previousTurn = Turn::PlayerTurn;
 	}
-	else if (m_CurrentTurnState.GetTurn() == Turn::NPCTurn)
+	else if (TurnState::m_currentTurn == Turn::WaitingTurn)
+	{
+		//Camera will look at arrow
+		m_newCameraState = NewCameraViewState::ArrowView;
+
+		//Suggestion: Paste code to process this code when arrow hits something
+
+		//After it hit something, change turn
+		//If it was player before
+		if (TurnState::m_previousTurn == Turn::PlayerTurn)
+		{
+			//NPC turn
+			TurnState::m_currentTurn = Turn::NPCTurn;
+		}
+		//If it was NPC before
+		else if (TurnState::m_previousTurn == Turn::NPCTurn)
+		{
+			//Player turn
+			TurnState::m_currentTurn = Turn::PlayerTurn;
+		}
+	}
+	//This will only change camera, all code will be running in NPC character
+	else if (TurnState::m_currentTurn == Turn::NPCTurn)
 	{
 		m_newCameraState = NewCameraViewState::NPCView;
 	}
-	else if (m_CurrentTurnState.GetTurn() == Turn::WaitingTurn)
-	{
-		m_newCameraState = NewCameraViewState::ArrowView;
-	}
-	//Dominic
-
-	//Code to switch turns, not yet sure where to add this right now
-
-	//PseudoCode:
-	//When PlayerTurn, drag mouse to shoot from bow
-	//Set PreviousTurnState to PlayerTurn
-	//When arrow is shot, switch to WaitingTurn, camera will switch automatically in above if statement
-	//When arrow turn is completed, check which state was before WaitingTurn(PreviousTurnState), if Player, switch to NPC and other way around
-	//When Turn is NPC, code will be executed there and Player won't be able to do anything
-	//Set PreviousTurnState to NPCTurn
-	//When arrow is shot(now from NPC), switch to WaitingTurn, camera will switch automatically in above if statement
-	//When arrow turn is completed, check which state was before WaitingTurn(PreviousTurnState), if Player, switch to NPC and other way around
-	//Repeat
-
 }
 void PlayerCharacter::OnMessage(const std::string msg)
 {

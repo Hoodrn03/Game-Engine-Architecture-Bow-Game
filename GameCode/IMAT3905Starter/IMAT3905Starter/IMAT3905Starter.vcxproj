@@ -30,6 +30,7 @@
     <ClCompile Include="src\jsoncpp.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\MessageSender.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\ModelManager.cpp" />
     <ClCompile Include="src\NPC_Character.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="include\InputCommand.h" />
     <ClInclude Include="include\InputHandler.h" />
     <ClInclude Include="include\Mesh.h" />
+    <ClInclude Include="include\MessageSender.h" />
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\ModelComponent.h" />
     <ClInclude Include="include\ModelManager.h" />
@@ -63,7 +65,6 @@
     <ClInclude Include="include\SceneStateComponent.h" />
     <ClInclude Include="include\StaticEnvironmentObject.h" />
     <ClInclude Include="include\TransformComponent.h" />
-    <ClInclude Include="include\TurnState.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

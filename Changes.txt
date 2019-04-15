@@ -7,3 +7,6 @@ Created base of AI_Component.
 Basically, I am planning out structure of everything
 
 Notes: CameraViewState first and third view cameras should be deleted later on
+
+Implemented first AI behaviour(not tested yet)
+Implemented Sender class with static variables to pass in messages between Player and NPC objects

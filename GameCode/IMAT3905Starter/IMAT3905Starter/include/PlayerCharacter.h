@@ -7,7 +7,7 @@
 #include "SceneStateComponent.h"
 
 //Dominic
-#include "TurnState.h"
+#include "MessageSender.h"
 
 /*! \class This will act as the player's main object. */
 class PlayerCharacter : public GameObject
@@ -64,9 +64,7 @@ private:
 
 	/*! \var The current state of the player's camera. */
 	NewCameraViewState m_newCameraState{ NewCameraViewState::PlayerView };
-	/*! \var The current Turn in the game. */
-	TurnState m_CurrentTurnState;
-	/*! \var The previous Turn in the game. */
-	TurnState m_PreviousTurnState;
+	/*! \var Player Health */
+	unsigned short m_playerHealth = 100;
 };
 
