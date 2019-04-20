@@ -10,7 +10,10 @@ PlayerCharacter::PlayerCharacter(Model* model, glm::vec3 position, glm::quat ori
 		addComponent(new ModelComponent(model));
 		addComponent(new CameraComponent());
 		addComponent(new SceneStateComponent());
+
 		addComponent(new Gravity(this));
+		addComponent(new Velocity(this, glm::vec3(0.1f, 0.1f, 0), 2, 2));
+
 		SetCameraPositionFromTransformComponent(tc);
 
 }
@@ -21,7 +24,15 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::OnUpdate(float dt)
 {
-	getComponent<Gravity>()->OnUpdate(dt);
+	if (getComponent<Gravity>() != nullptr)
+	{
+		getComponent<Gravity>()->OnUpdate(dt);
+	}
+
+	if (getComponent<Velocity>() != nullptr)
+	{
+		getComponent<Velocity>()->OnUpdate(dt);
+	}
 }
 
 void PlayerCharacter::OnMessage(const std::string msg)

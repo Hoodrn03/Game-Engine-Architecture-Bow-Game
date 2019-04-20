@@ -31,9 +31,9 @@ private:
 
 	// Data Members 
 
-	glm::vec3 m_fGravity = { 0.f, 0.0098f, 0.f };
+	glm::vec3 m_fGravity = { 0.f, 0.98f, 0.f };
 
-	GameObject * m_ThisObject;
+	GameObject * m_ThisObject = nullptr;
 
 public:
 
@@ -41,7 +41,11 @@ public:
 
 	void OnUpdate(float dt)
 	{
-		m_ThisObject->getComponent<TransformComponent>()->m_position -= (m_fGravity * dt);
+		// This should stop is the connected object is at ground level. 
+		if (m_ThisObject->getComponent<TransformComponent>()->m_position.y > 0)
+		{
+			m_ThisObject->getComponent<TransformComponent>()->m_position += (-m_fGravity * dt);
+		}
 	}
 	
 	void OnMessage(const std::string m)
