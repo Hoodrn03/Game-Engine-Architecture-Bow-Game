@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BackgroundColourGameObject.cpp" />
+    <ClCompile Include="src\CollisionDetection.cpp" />
     <ClCompile Include="src\ExampleGame.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GLAD\glad.c" />
@@ -41,6 +42,7 @@
   <ItemGroup>
     <ClInclude Include="include\BackgroundColourGameObject.h" />
     <ClInclude Include="include\CameraComponent.h" />
+    <ClInclude Include="include\CollisionDetection.h" />
     <ClInclude Include="include\ColourComponent.h" />
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\ExampleGame.h" />

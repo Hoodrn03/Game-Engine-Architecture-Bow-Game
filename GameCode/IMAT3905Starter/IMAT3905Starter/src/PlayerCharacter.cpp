@@ -12,7 +12,7 @@ PlayerCharacter::PlayerCharacter(Model* model, glm::vec3 position, glm::quat ori
 		addComponent(new SceneStateComponent());
 
 		addComponent(new Gravity(this));
-		addComponent(new Velocity(this, glm::vec3(0.1f, 0.1f, 0), 2, 2));
+		addComponent(new Velocity(this, glm::vec3(-0.1f, 0.1f, 0), 2, 2));
 
 		SetCameraPositionFromTransformComponent(tc);
 
