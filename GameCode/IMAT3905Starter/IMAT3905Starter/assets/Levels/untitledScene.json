@@ -1,7 +1,7 @@
 {
   "GameObjects": [
       {"name": "gnd", "model": "ground5.obj", "position": [0.0,0.0,0.0]},  
-      {"name": "pCone1", "model": "nothing.obj", "position": [0.0,0.0,0.0]},
+      {"name": "pCone1", "model": "player.obj", "position": [0.0,0.4,0.0]},
 	  {"name": "pCube1", "model": "nothing.obj", "position": [-3.0,0.0,-5.0]},
 	  {"name": "pSphere1", "model": "nothing.obj", "position": [0.0,1.0,-5.0]},
 	  {"name": "pCylinder1", "model": "nothing.obj", "position": [3.0,0.0,-5.0]},
