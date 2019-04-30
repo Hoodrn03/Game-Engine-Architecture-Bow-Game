@@ -34,7 +34,10 @@ void ExampleGame::update(float dt)
 
 		m_scene = new Scene(m_levelNames[m_sceneIndex], m_theModelManager, m_engineInterfacePtr);
 		m_inputHandler = new InputHandler(m_scene->getPlayer());  // or have a set function perhaps better then a new instance!
+
 	}
+
+	m_scene->update(dt);
 }
 void ExampleGame::render() 
 {

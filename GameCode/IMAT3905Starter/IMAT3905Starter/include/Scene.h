@@ -9,6 +9,7 @@
 
 #include <string>
 
+#include "NPC_Character.h"
 
 //class Model;
 class ModelManager;
