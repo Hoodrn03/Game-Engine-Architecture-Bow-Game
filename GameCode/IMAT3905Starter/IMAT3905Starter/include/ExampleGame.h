@@ -33,7 +33,7 @@ private:
 	//these could be loaded from a file...
 	/*! \var A list of levels via their file path. */
 	std::string m_levelNames[2] = {
-		"assets/levels/untitledScene.json",
-		"assets/levels/testLevel2.json"
+		"assets/levels/levelOne.json",
+		"assets/levels/levelTwo.json"
 	};
 };
