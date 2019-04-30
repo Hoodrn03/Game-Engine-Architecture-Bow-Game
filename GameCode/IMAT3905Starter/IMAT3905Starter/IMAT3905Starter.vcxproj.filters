@@ -75,7 +75,10 @@
     <ClCompile Include="src\MessageSender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ArrowObject.cpp">
+    <ClCompile Include="src\ArrowObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MouseInputs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -152,7 +155,13 @@
     <ClInclude Include="include\MessageSender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ArrowObject.h">
+    <ClInclude Include="include\ArrowObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MouseInputs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

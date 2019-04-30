@@ -218,10 +218,6 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		}
 	}
 
-
-
-
-
 	return loadOK;
 }
 

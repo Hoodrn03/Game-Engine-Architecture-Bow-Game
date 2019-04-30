@@ -519,4 +519,9 @@ void GLFW_EngineCore::getMouseState(double& mouseX, double& mouseY, int& mouseBu
 	mouseX = m_mouseX;
 	mouseY = m_mouseY;
 	mouseButtons = m_mouseButtons;	
+	
+	g_mouseX = m_mouseX;
+	g_mouseY = m_mouseY;
+	g_mouseButtons = m_mouseButtons;
+
 }

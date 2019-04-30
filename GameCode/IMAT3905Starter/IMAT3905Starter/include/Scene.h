@@ -7,6 +7,8 @@
 #include "PlayerCharacter.h"
 #include "IEngineCore.h"
 
+#include "ArrowObject.h"
+
 #include <string>
 
 

@@ -1,6 +1,9 @@
 #pragma once
 #include "Game.h"
 
+#include "Defs.h"
+#include "MouseInputs.h"
+
 class ModelManager;
 
 /*! \class A game created with the game engine's functionality. */
@@ -24,9 +27,10 @@ public:
 
 private:
 
-
 	/*! \var This will manage all of teh models used within this game. */
 	ModelManager* m_theModelManager;
+
+	MouseInputs temp; 
 
 	/*! \var Used to keep track of the current scene or level. */
 	int m_sceneIndex{ 0 };

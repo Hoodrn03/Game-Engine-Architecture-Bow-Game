@@ -8,7 +8,6 @@
 #include "TransformComponent.h"
 #include "SceneStateComponent.h"
 
-
 //#include <stdio.h>
 #include <string>
 //#include <vector>
@@ -26,15 +25,12 @@ ExampleGame::ExampleGame(IEngineCore* engine) : Game(engine)
 void ExampleGame::update(float dt) 
 {
 	int desiredSceneIndex = m_scene->getPlayer()->getComponent<SceneStateComponent>()->GetSceneIndex();
-	bool arrowFire = true; 
-	if (arrowFire == true)
-	{
-		
-	}
 
 	if (desiredSceneIndex != m_sceneIndex)
 	{
 		delete m_scene;
+
+		temp.checkButtonPress(g_mouseButtons);
 
 		m_sceneIndex = desiredSceneIndex;
 
