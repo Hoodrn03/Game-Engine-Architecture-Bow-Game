@@ -8,6 +8,7 @@
 #include "TransformComponent.h"
 #include "SceneStateComponent.h"
 
+
 //#include <stdio.h>
 #include <string>
 //#include <vector>
@@ -25,6 +26,11 @@ ExampleGame::ExampleGame(IEngineCore* engine) : Game(engine)
 void ExampleGame::update(float dt) 
 {
 	int desiredSceneIndex = m_scene->getPlayer()->getComponent<SceneStateComponent>()->GetSceneIndex();
+	bool arrowFire = true; 
+	if (arrowFire == true)
+	{
+		
+	}
 
 	if (desiredSceneIndex != m_sceneIndex)
 	{
@@ -68,5 +74,6 @@ void ExampleGame::Initialise()
 	m_theModelManager = new ModelManager();	// singleton later...
 	m_scene = new Scene(m_levelNames[m_sceneIndex], m_theModelManager, m_engineInterfacePtr);
 	m_inputHandler = new InputHandler(m_scene->getPlayer());
+
 }
 

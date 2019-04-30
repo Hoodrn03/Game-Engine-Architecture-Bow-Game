@@ -24,6 +24,7 @@ public:
 
 private:
 
+
 	/*! \var This will manage all of teh models used within this game. */
 	ModelManager* m_theModelManager;
 
