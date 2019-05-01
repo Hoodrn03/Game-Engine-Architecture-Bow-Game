@@ -1,0 +1,194 @@
+#pragma once
+#include "Component.h"
+#include "MessageSender.h"
+
+#include <stdlib.h>
+#include <time.h>
+
+class AI_Component : public Component
+{
+private:
+	/*! \var const Minimum Angle of NPC to shoot. */
+	const float MIN_ANGLE = 90;
+	/*! \var const Maximum Angle of NPC to shoot. */
+	const float MAX_ANGLE = 180;
+	/*! \var const Minimum Power of NPC to shoot. */
+	const float MIN_POWER = 0;
+	/*! \var const Maximum Power of NPC to shoot. */
+	const float MAX_POWER = 100;
+
+
+	/*! \var Minimum Angle current range of NPC to shoot. */
+	float m_minAngleRange = MIN_ANGLE;
+	/*! \var Maximum Angle current range of NPC to shoot. */
+	float m_maxAngleRange = MAX_ANGLE;
+	/*! \var Angle of NPC to shoot. */
+	float m_angle;
+	/*! \var Minimum Power current range of NPC to shoot. */
+	float m_minPowerRange = MIN_POWER;
+	/*! \var Maximum Power current range of NPC to shoot. */
+	float m_maxPowerRange = MAX_POWER;
+	/*! \var Power of NPC to shoot. */
+	float m_power;
+
+public:
+	/*! \fn Construtor.*/
+	AI_Component()
+	{
+
+	}
+
+	/*! \fn Used to update this class every frame.
+	*Param One float The current delta (change in) time since last frame.
+	*/
+	void OnUpdate(float dt) override
+	{
+	}
+
+	/*! \fn Used to respond to inputs.
+	*Param One String The input message.
+	*/
+	void OnMessage(const std::string m) override
+	{
+
+	}
+	/*! \fn Used to get random angle to inputs.
+	*/
+	void GetRandomAngle()
+	{
+		//if not hit, use range
+		if (!PassInPlayerState::m_isPlayerHit)
+		{
+			m_angle = RandomFloat(m_minAngleRange, m_maxAngleRange);
+		}
+		//if hit, make slight randomness when NPC shoots at the same target
+		if (PassInPlayerState::m_isPlayerHit)
+		{
+			m_angle = RandomFloat(m_angle - 5, m_angle + 5);
+		}
+	}
+	/*! \fn Used to get random power to inputs.
+	*/
+	void GetRandomPower()
+	{
+		//if not hit, use range
+		if (!PassInPlayerState::m_isPlayerHit)
+		{
+			m_power = RandomFloat(m_minPowerRange, m_maxPowerRange);
+		}
+		//if hit, make slight randomness when NPC shoots at the same target
+		if (PassInPlayerState::m_isPlayerHit)
+		{
+			m_power = RandomFloat(m_power - 5, m_power + 5);
+		}
+	}
+	/*! \fn General Random function.
+	*/
+	float RandomFloat(float minimum, float maximum)
+	{
+		srand(time(NULL));
+		float rangeSpan = maximum - minimum;
+		return ((float)rand() / RAND_MAX) * rangeSpan + minimum; //from current min - current max
+	}
+
+	/*! \fn Used to Calculate Distance Between Two Objects.
+	*Param One glm vec3 position of first object.
+	*Param Two glm vec3 position of second object.
+	*/
+	float CalculateDistanceBetweenTwoObjects(glm::vec3 position1, glm::vec3 position2)
+	{
+		//for now
+		return abs(position1.x - position2.x);
+	}
+
+	/*! \fn Used to execute AI behaviour.
+	*Param One float distance between Player and NPC.
+	*Param Two float distance between Arrow and NPC.
+	*/
+	void ExecuteAlgorithm(float playerNPCDistance, float arrowNPCDistance)
+	{
+		//If undershot
+		if (playerNPCDistance >= arrowNPCDistance)
+		{
+			if (m_angle < 135)
+			{
+				IncreaseRange(m_minPowerRange, m_maxPowerRange, MAX_POWER, 10);
+			}
+			else
+			{
+				IncreaseRange(m_minAngleRange, m_maxAngleRange, MAX_ANGLE, 15);
+			}
+		}
+		//If overshot
+		else if (playerNPCDistance < arrowNPCDistance)
+		{
+			if (m_angle < 135)
+			{
+				DecreaseRange(m_minPowerRange, m_maxPowerRange, MIN_POWER, 10);
+			}
+			else
+			{
+				DecreaseRange(m_minAngleRange, m_maxAngleRange, MIN_ANGLE, 15);
+			}
+		}
+	}
+
+	/*! \fn Used to increase range.
+	*Param One float minimum current range.
+	*Param Two float maximum current range.
+	*Param Three float absolute maximum range value.
+	*Param Four float increment of range.
+	*/
+	void IncreaseRange(float minRange, float maxRange, float absoluteMaxValue, float increment)
+	{
+		//If minimum reached current maximum range
+		if (minRange + increment > maxRange)
+		{
+			//stop making it bigger that max range
+			minRange = maxRange;
+		}
+		else
+		{
+			//Increase minimum
+			minRange += increment;
+		}
+		//Do not increase more than absolute allowed max value
+		if (maxRange + increment > absoluteMaxValue)
+		{
+			maxRange = absoluteMaxValue;
+		}
+		else
+		{
+			maxRange += increment;
+		}
+	}
+
+	/*! \fn Used to decrease range.
+	*Param One float minimum current range.
+	*Param Two float maximum current range.
+	*Param Three float absolute minimum range value.
+	*Param Four float decrement of range.
+	*/
+	void DecreaseRange(float minRange, float maxRange, float absoluteMinValue, float decrement)
+	{
+		//Decrease range of power
+		//Until it hits min
+		if (minRange - decrement < absoluteMinValue)
+		{
+			minRange = absoluteMinValue;
+		}
+		else
+		{
+			minRange -= decrement;
+		}
+		//Do not decrease more than curret minimum range
+		if (maxRange - decrement < minRange)
+		{
+			maxRange = minRange;
+		}
+		else
+		{
+			maxRange -= decrement;
+		}
+	}
+};

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -31,8 +31,10 @@
     <ClCompile Include="src\jsoncpp.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\MessageSender.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\ModelManager.cpp" />
+    <ClCompile Include="src\NPC_Character.cpp" />
     <ClCompile Include="src\PlayerCharacter.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneStateComponent.cpp" />
@@ -40,6 +42,7 @@
     <ClCompile Include="src\stb_image.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\AI_Component.h" />
     <ClInclude Include="include\BackgroundColourGameObject.h" />
     <ClInclude Include="include\CameraComponent.h" />
     <ClInclude Include="include\CollisionDetection.h" />
@@ -55,9 +58,11 @@
     <ClInclude Include="include\InputCommand.h" />
     <ClInclude Include="include\InputHandler.h" />
     <ClInclude Include="include\Mesh.h" />
+    <ClInclude Include="include\MessageSender.h" />
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\ModelComponent.h" />
     <ClInclude Include="include\ModelManager.h" />
+    <ClInclude Include="include\NPC_Character.h" />
     <ClInclude Include="include\PlayerCharacter.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneStateComponent.h" />
@@ -70,7 +75,7 @@
     <ProjectGuid>{9A94FDF4-C024-4B44-9F86-E92CEF08175A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>IMAT3905Starter</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

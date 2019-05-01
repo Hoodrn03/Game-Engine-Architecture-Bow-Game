@@ -163,7 +163,7 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		}
 		else
 		{
-			model = m_theModelManager->getModel("assets/models/cone.obj");			// change to error model later....
+			model = m_theModelManager->getModel("assets/models/nothing.obj");			// change to error model later....
 		}
 
 		// test for no model later!!!!!
@@ -183,6 +183,17 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 
 
 		glm::vec3 position(x, y, z);
+
+		float h, w, d;
+		// get the dimention node
+		const Json::Value dimNode = gameObjects[i]["height&width"];
+		h = dimNode[0].asFloat(); // get float
+		w = dimNode[1].asFloat();
+		d = dimNode[2].asFloat();
+
+
+
+		glm::vec3 dimention(h, w, d);
 
 		glm::quat orientation(1.0f, 0.0f, 0.0f, 0.0f);
 

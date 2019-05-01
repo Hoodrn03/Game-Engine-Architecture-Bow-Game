@@ -1,0 +1,12 @@
+Created TurnState class with enum to check for turns in the game;
+Created NPC_Character class, in which AI behaviour will be programmed;
+Added in PlayerCharacter camera switching code and pseudocode for switching turns(for now)
+Added NPC_Character pseudocode of AI behaviour;
+Created base of AI_Component.
+
+Basically, I am planning out structure of everything
+
+Notes: CameraViewState first and third view cameras should be deleted later on
+
+Implemented first AI behaviour(not tested yet)
+Implemented Sender class with static variables to pass in messages between Player and NPC objects

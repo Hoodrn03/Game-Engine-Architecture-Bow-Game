@@ -4,18 +4,15 @@
 // constructor
 PlayerCharacter::PlayerCharacter(Model* model, glm::vec3 position, glm::quat orientation)
 {
-		TransformComponent* tc = new TransformComponent(position, orientation);
+	TransformComponent* tc = new TransformComponent(position, orientation);
 
-		addComponent(tc);
-		addComponent(new ModelComponent(model));
-		addComponent(new CameraComponent());
-		addComponent(new SceneStateComponent());
+	addComponent(tc);
+	addComponent(new ModelComponent(model));
+	addComponent(new CameraComponent());
+	addComponent(new SceneStateComponent());
+	SetCameraPositionFromTransformComponent(tc);
 
-		addComponent(new Gravity(this));
-		addComponent(new Velocity(this, glm::vec3(-0.1f, 0.1f, 0), 2, 2));
-
-		SetCameraPositionFromTransformComponent(tc);
-
+	PassInPlayerState::SetPlayerPosition(position);
 }
 
 PlayerCharacter::~PlayerCharacter()
@@ -24,14 +21,48 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::OnUpdate(float dt)
 {
-	if (getComponent<Gravity>() != nullptr)
-	{
-		getComponent<Gravity>()->OnUpdate(dt);
-	}
 
-	if (getComponent<Velocity>() != nullptr)
+	//Dominic
+
+	//Since camera and turns will be switched automatically, I don't think camera will require any messages to be swithed on Onmessage function
+
+	//Code to switch turns and camera
+
+	if (TurnState::m_currentTurn == Turn::PlayerTurn)
 	{
-		getComponent<Velocity>()->OnUpdate(dt);
+		m_newCameraState = NewCameraViewState::PlayerView;
+
+		//Suggestion: Paste code to drag mouse to shoot from bow here, maybe as a function
+
+		//After Player pressed(released) to shoot, change turn
+		TurnState::m_currentTurn = Turn::WaitingTurn;
+		TurnState::m_previousTurn = Turn::PlayerTurn;
+	}
+	else if (TurnState::m_currentTurn == Turn::WaitingTurn)
+	{
+		//Camera will look at arrow
+		m_newCameraState = NewCameraViewState::ArrowView;
+
+		//Suggestion: Paste code to process this code when arrow hits something
+
+		//After it hit something, change turn
+		//If it was player before
+		if (TurnState::m_previousTurn == Turn::PlayerTurn)
+		{
+			//NPC turn
+			TurnState::m_currentTurn = Turn::NPCTurn;
+		}
+		//If it was NPC before
+		else if (TurnState::m_previousTurn == Turn::NPCTurn)
+		{
+			//Player turn
+			TurnState::m_currentTurn = Turn::PlayerTurn;
+		}
+	}
+	//This will only change camera, all code will be running in NPC character
+	else if (TurnState::m_currentTurn == Turn::NPCTurn)
+	{
+		m_newCameraState = NewCameraViewState::NPCView;
 	}
 }
 
