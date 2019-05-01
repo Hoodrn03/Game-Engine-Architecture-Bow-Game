@@ -25,7 +25,7 @@ public:
 private:
 
 	/*! \var This will manage all of teh models used within this game. */
-	ModelManager* m_theModelManager;
+	ModelManager* m_theModelManager = nullptr;
 
 	/*! \var Used to keep track of the current scene or level. */
 	int m_sceneIndex{ 0 };

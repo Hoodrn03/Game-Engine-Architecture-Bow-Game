@@ -69,6 +69,7 @@
     <ClCompile Include="src\SceneStateComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CollisionDetection.cpp">
     <ClCompile Include="src\NPC_Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -140,6 +141,13 @@
     <ClInclude Include="include\SceneStateComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Gravity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Velocity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CollisionDetection.h">
     <ClInclude Include="include\NPC_Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
