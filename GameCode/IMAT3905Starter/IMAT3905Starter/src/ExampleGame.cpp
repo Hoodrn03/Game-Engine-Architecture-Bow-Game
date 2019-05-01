@@ -17,35 +17,33 @@
 #include <sstream>
 //#include "InputHandler.h"
 
-
-CameraObject CO(glm::vec3(0.f, 0.f, 0.f), glm::quat(0.f, 0.f, 0.f, 0.f));
-
 ExampleGame::ExampleGame(IEngineCore* engine) : Game(engine)
 {
 	Initialise();
 
-	glm::vec3 * tempOne = new glm::vec3( 0.f, 2.f, 0.f );
-
-	glm::vec3 * tempTwo = new glm::vec3(2.f, 0.f, 0.f);
-
-	glm::vec3 * tempThree = new glm::vec3(0.f, 0.f, 2.f);
-
-	CO.m_SetPlayerPos(tempOne);
-	CO.m_SetEnemyPos(tempTwo);
-	CO.m_CurrentArrowPos(tempThree); 
-
-	CO.OnUpdate(0.0f, 2); 
-
-
 }
 
-glm::vec2 result; 
+bool m_bOnce = true; 
 
 void ExampleGame::update(float dt) 
 {
-	int desiredSceneIndex = m_scene->getPlayer()->getComponent<SceneStateComponent>()->GetSceneIndex();
+	m_scene->update(dt); 
 
-	m_scene->getPlayer()->OnUpdate(dt);
+	if (m_iMouseButtons == 1)
+	{
+		if (m_bOnce == true)
+		{
+			m_scene->m_AddArrow(1);
+
+			m_bOnce = false; 
+		}
+	}
+	else if (m_iMouseButtons == 0)
+	{
+		m_scene->m_SetArrowMoving();
+	}
+
+	int desiredSceneIndex = m_scene->getPlayer()->getComponent<SceneStateComponent>()->GetSceneIndex();
 
 	if (desiredSceneIndex != m_sceneIndex)
 	{
@@ -54,25 +52,11 @@ void ExampleGame::update(float dt)
 
 		m_sceneIndex = desiredSceneIndex;
 
-		m_scene = new Scene(m_levelNames[m_sceneIndex], m_theModelManager, m_engineInterfacePtr);
+		m_scene = new Scene(m_sLevelNames[m_sceneIndex], m_theModelManager, m_engineInterfacePtr);
 		m_inputHandler = new InputHandler(m_scene->getPlayer());  // or have a set function perhaps better then a new instance!
 	}
-
-	/*if (g_mouseButtons == 1)
-	{
-		std::cout << g_mouseButtons << std::endl;
-	}*/
-	
-	temp.checkButtonPress(m_mouseButtons);
-	temp.getInitialXY(m_mouseX, m_mouseY);
-	temp.getLastXY(m_mouseX, m_mouseY);
-	result = temp.getDifference(); 
-	//temp.getDifference(); 
-
-
-	//std::cout << "FINAL " << result << std::endl; 
-	
 }
+
 void ExampleGame::render() 
 {
 	m_scene->render(m_engineInterfacePtr);
@@ -94,27 +78,21 @@ void ExampleGame::render()
 	}
 }
 
-//bool ExampleGame::loadLevelJSON(std::string levelJSONFile)
-//{
-//
-//
-//}
-
 void ExampleGame::Initialise()
 {
 	m_theModelManager = new ModelManager();	// singleton later...
-	m_scene = new Scene(m_levelNames[m_sceneIndex], m_theModelManager, m_engineInterfacePtr);
+	m_scene = new Scene(m_sLevelNames[m_sceneIndex], m_theModelManager, m_engineInterfacePtr);
 	m_inputHandler = new InputHandler(m_scene->getPlayer());
 
 }
 
 void ExampleGame::SetMouseInput(int mouseInput)
 {
-	m_mouseButtons = mouseInput;
+	m_iMouseButtons = mouseInput;
 }
 
 void ExampleGame::SetXY(double mouseX, double mouseY)
 {
-	m_mouseX = mouseX;
-	m_mouseY = mouseY; 
+	m_dMouseX = mouseX;
+	m_dMouseY = mouseY; 
 }

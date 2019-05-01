@@ -5,6 +5,10 @@
 #include "ModelComponent.h"
 #include "SceneStateComponent.h"
 
+// Physics. 
+#include "Velocity.h"
+#include "Gravity.h"
+
 #include <iostream>
 
 class ArrowObject : public GameObject
@@ -20,6 +24,10 @@ private:
 
 	// Data Members 
 
+	glm::vec3 m_CurrMouseInput;
+
+	bool m_bOnce = true; 
+
 public:
 
 	// Member Functions 
@@ -29,4 +37,6 @@ public:
 	void OnMessage(const std::string m) override;
 
 	void MouseInput(glm::vec2 xy);
+
+	void m_FireArrow(bool fired, float power, float powerDec, glm::vec3 mouseInput);
 };

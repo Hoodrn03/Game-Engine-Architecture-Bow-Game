@@ -39,7 +39,10 @@ Scene::~Scene()
 void Scene::update(float dt)
 {
 
-
+	for (unsigned int i = 0; i < v_gameObjects.size(); i++)
+	{
+		v_gameObjects[i]->OnUpdate(dt); 
+	}
 
 }
 
@@ -101,6 +104,15 @@ void Scene::render(IEngineCore* engineCore)
 
 	// draw the game objects
 	for (auto gameObject : v_gameObjects)
+	{
+		Model* model = gameObject->getComponent<ModelComponent>()->getModel();
+		glm::mat4 matrix = gameObject->getComponent<TransformComponent>()->getModelMatrix();
+		engineCore->drawModel(model, matrix);
+
+	}
+
+	// draw the game objects
+	for (auto gameObject : v_Arrows)
 	{
 		Model* model = gameObject->getComponent<ModelComponent>()->getModel();
 		glm::mat4 matrix = gameObject->getComponent<TransformComponent>()->getModelMatrix();
@@ -325,10 +337,29 @@ PlayerCharacter* Scene::getPlayer()
 	return (PlayerCharacter*)v_gameObjects[m_playerIndex];
 }
 
+void Scene::m_AddArrow()
+{
+	ArrowObject * temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), glm::vec3(0, 0, 0), glm::quat(0, 0, 0, 0));
 
+	v_Arrows.push_back(temp); 
+}
 
+void Scene::m_AddArrow(int index)
+{
+	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position + glm::vec3(10, 10, 0), glm::quat(0, 0, 0, 0));
 
+	v_Arrows.push_back(temp);
+}
 
+void Scene::m_SetArrowMoving()
+{
+	if (v_Arrows.size() > 0)
+	{
+		unsigned int l_iIndex = v_Arrows.size() - 1;
+
+		v_Arrows.at(l_iIndex)->m_FireArrow(true, 20, 10, glm::vec3(1, 1, 0));
+	}
+}
 
 void Scene::loadLevel(std::string levelFile)
 {
