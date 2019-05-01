@@ -28,6 +28,5 @@ public:
 	
 	void OnMessage(const std::string m) override;
 
-	void MouseInput(float x, float y);
-
+	void MouseInput(glm::vec2 xy);
 };

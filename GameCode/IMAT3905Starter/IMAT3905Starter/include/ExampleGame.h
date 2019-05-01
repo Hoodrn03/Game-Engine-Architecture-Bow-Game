@@ -3,6 +3,7 @@
 
 #include "Defs.h"
 #include "MouseInputs.h"
+#include "../CameraObject.h"
 
 class ModelManager;
 
@@ -25,6 +26,10 @@ public:
 	/*! \fn Used for setting up the game. */
 	void Initialise();
 
+	void SetMouseInput(int mouseInput);
+
+	void SetXY(double mouseX, double mouseY);
+
 private:
 
 	/*! \var This will manage all of teh models used within this game. */
@@ -41,4 +46,8 @@ private:
 		"assets/levels/testLevel.json",
 		"assets/levels/testLevel2.json"
 	};
+
+	int m_mouseButtons;
+	double m_mouseX;
+	double m_mouseY;
 };

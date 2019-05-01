@@ -8,10 +8,6 @@ ArrowObject::ArrowObject(Model* model, glm::vec3 position, glm::quat orientation
 	addComponent(new ModelComponent(model));
 }
 
-ArrowObject::~ArrowObject()
-{
-}
-
 void ArrowObject::OnUpdate(float dt)
 {
 }
@@ -20,11 +16,13 @@ void ArrowObject::OnMessage(const std::string m)
 {
 }
 
-void ArrowObject::MouseInput(float x, float y)
-{
-	std::cout << x << " " << y << std::endl;
-
-
+void ArrowObject::MouseInput(glm::vec2 xy)
+{	
+	std::cout << xy.x << xy.y << std::endl;
 
 	//todo add physics 
+}
+
+ArrowObject::~ArrowObject()
+{
 }

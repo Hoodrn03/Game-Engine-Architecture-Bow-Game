@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraObject.cpp" />
     <ClCompile Include="include\MouseInputs.cpp" />
     <ClCompile Include="src\ArrowObject.cpp" />
     <ClCompile Include="src\BackgroundColourGameObject.cpp" />
@@ -43,6 +44,7 @@
     <ClCompile Include="src\stb_image.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraObject.h" />
     <ClInclude Include="include\AI_Component.h" />
     <ClInclude Include="include\ArrowObject.h" />
     <ClInclude Include="include\BackgroundColourGameObject.h" />
