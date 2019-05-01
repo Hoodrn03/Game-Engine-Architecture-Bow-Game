@@ -7,6 +7,7 @@
 #include "CameraComponent.h"
 #include <map>
 
+#include "Defs.h"
 
 class Model;
 class Game;

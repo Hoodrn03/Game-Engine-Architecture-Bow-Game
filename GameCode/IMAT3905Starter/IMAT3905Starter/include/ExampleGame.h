@@ -1,6 +1,10 @@
 #pragma once
 #include "Game.h"
 
+#include "Defs.h"
+#include "MouseInputs.h"
+#include "../CameraObject.h"
+
 class ModelManager;
 
 /*! \class A game created with the game engine's functionality. */
@@ -22,10 +26,16 @@ public:
 	/*! \fn Used for setting up the game. */
 	void Initialise();
 
+	void SetMouseInput(int mouseInput);
+
+	void SetXY(double mouseX, double mouseY);
+
 private:
 
 	/*! \var This will manage all of teh models used within this game. */
 	ModelManager* m_theModelManager = nullptr;
+
+	MouseInputs temp; 
 
 	/*! \var Used to keep track of the current scene or level. */
 	int m_sceneIndex{ 0 };
@@ -36,4 +46,8 @@ private:
 		"assets/levels/levelOne.json",
 		"assets/levels/levelTwo.json"
 	};
+
+	int m_mouseButtons;
+	double m_mouseX;
+	double m_mouseY;
 };

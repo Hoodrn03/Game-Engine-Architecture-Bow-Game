@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraObject.cpp" />
+    <ClCompile Include="include\MouseInputs.cpp" />
+    <ClCompile Include="src\ArrowObject.cpp" />
     <ClCompile Include="src\BackgroundColourGameObject.cpp" />
     <ClCompile Include="src\CollisionDetection.cpp" />
     <ClCompile Include="src\ExampleGame.cpp" />
@@ -42,12 +45,15 @@
     <ClCompile Include="src\stb_image.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraObject.h" />
     <ClInclude Include="include\AI_Component.h" />
+    <ClInclude Include="include\ArrowObject.h" />
     <ClInclude Include="include\BackgroundColourGameObject.h" />
     <ClInclude Include="include\CameraComponent.h" />
     <ClInclude Include="include\CollisionDetection.h" />
     <ClInclude Include="include\ColourComponent.h" />
     <ClInclude Include="include\Component.h" />
+    <ClInclude Include="include\Defs.h" />
     <ClInclude Include="include\ExampleGame.h" />
     <ClInclude Include="include\ft2build.h" />
     <ClInclude Include="include\Game.h" />
@@ -62,6 +68,7 @@
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\ModelComponent.h" />
     <ClInclude Include="include\ModelManager.h" />
+    <ClInclude Include="include\MouseInputs.h" />
     <ClInclude Include="include\NPC_Character.h" />
     <ClInclude Include="include\PlayerCharacter.h" />
     <ClInclude Include="include\Scene.h" />
