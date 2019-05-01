@@ -17,7 +17,7 @@ NPC_Character::~NPC_Character()
 void NPC_Character::OnUpdate(float dt)
 {
 	//NPCTurn
-	if (TurnState::m_currentTurn == Turn::PlayerTurn)
+	if (TurnState::m_currentTurn == Turn::NPCTurn)
 	{
 		//Pass in boolean is hit player or not here
 		getComponent<AI_Component>()->GetRandomAngle();
@@ -44,13 +44,13 @@ void NPC_Character::OnUpdate(float dt)
 
 
 		//After execution
-		TurnState::m_currentTurn = Turn::PlayerTurn; //waiting turn
-		TurnState::m_previousTurn = Turn::PlayerTurn;  // npc turn
+		TurnState::m_currentTurn = Turn::WaitingTurn; //waiting turn
+		TurnState::m_previousTurn = Turn::NPCTurn;  // npc turn
 	}
 
 	//Code to find if arrow hit something
-	bool m_HitGround = true;
-	bool m_HitPlayer = false;
+	//bool m_HitGround = true;
+	//bool m_HitPlayer = false;
 
 	//Will need to access this, but right now I don't have arrow object
 	//m_arrowNPCDistance = getComponent<AI_Component>()->CalculateDistanceBetweenTwoObjects(arrowposition, position);

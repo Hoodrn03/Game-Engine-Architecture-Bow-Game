@@ -38,9 +38,6 @@ Scene::~Scene()
 
 void Scene::update(float dt)
 {
-	
-	v_gameObjects[2]->OnUpdate(dt);
-
 }
 
 void Scene::render(IEngineCore* engineCore)
