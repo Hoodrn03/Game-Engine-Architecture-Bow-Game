@@ -51,13 +51,19 @@ public:
 
 	NPC_Character* getNPCharacter(); 
 
+	ArrowObject* getLatestArrow();
+
 	CollisionDetection m_CollisionDetector; 
 
 	void m_AddArrow(); 
 
 	void m_AddArrow(int index);
 
-	void m_SetArrowMoving(); 
+	void m_AddEnemyArrow(int index);
+
+	void m_SetArrowMoving();
+
+	void m_SetEnemyArrowMoving(float powerDec, glm::vec3 mouseInput);
 
 private:
 

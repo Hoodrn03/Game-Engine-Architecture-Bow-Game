@@ -55,7 +55,7 @@ public:
 	}
 	/*! \fn Used to get random angle to inputs.
 	*/
-	void GetRandomAngle()
+	float GetRandomAngle()
 	{
 		//if not hit, use range
 		if (!PassInPlayerState::m_isPlayerHit)
@@ -68,10 +68,12 @@ public:
 		{
 			m_angle = RandomFloat(m_angle - 5, m_angle + 5);
 		}
+
+		return m_angle;
 	}
 	/*! \fn Used to get random power to inputs.
 	*/
-	void GetRandomPower()
+	float GetRandomPower()
 	{
 		//if not hit, use range
 		if (!PassInPlayerState::m_isPlayerHit)
@@ -84,6 +86,8 @@ public:
 		{
 			m_power = RandomFloat(m_power - 5, m_power + 5);
 		}
+
+		return m_power;
 	}
 	/*! \fn General Random function.
 	*/
@@ -205,5 +209,10 @@ public:
 	float GetStartingAngle()
 	{
 		return MIN_ANGLE;
+	}
+
+	glm::vec3 ConvertAnglesToVelocity(float angle)
+	{
+		return glm::vec3(-sin(angle), abs(cos(angle)), 0);
 	}
 };

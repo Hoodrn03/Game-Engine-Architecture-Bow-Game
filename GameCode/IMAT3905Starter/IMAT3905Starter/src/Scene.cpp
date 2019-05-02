@@ -289,6 +289,11 @@ PlayerCharacter* Scene::getPlayer()
 	return (PlayerCharacter*)v_gameObjects[m_playerIndex];
 }
 
+ArrowObject* Scene::getLatestArrow()
+{
+	return v_Arrows[v_Arrows.size() - 1];
+}
+
 void Scene::m_AddArrow()
 {
 	ArrowObject * temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), glm::vec3(0, 0, 0), glm::quat(0, 0, 0, 0));
@@ -314,6 +319,26 @@ void Scene::m_SetArrowMoving()
 		v_Arrows.at(l_iIndex)->m_FireArrow(true, 1.f, 1.f, glm::vec3(0.5, 0.5, 0));
 	}
 }
+
+void Scene::m_SetEnemyArrowMoving(float powerDec, glm::vec3 Direction)
+{
+	if (v_Arrows.size() > 0)
+	{
+		unsigned int l_iIndex = v_Arrows.size() - 1;
+
+		v_Arrows.at(l_iIndex)->m_FireArrow(true, 1.f, powerDec, Direction);
+	}
+}
+
+void Scene::m_AddEnemyArrow(int index)
+{
+	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/enemyarrow.obj"), getNPCharacter()->getComponent<TransformComponent>()->m_position + glm::vec3(0, 1, 0), glm::quat(1, 0, 0, 0));
+
+	m_CollisionDetector.m_SetCurrArrowObject(temp);
+
+	v_Arrows.push_back(temp);
+}
+
 
 void Scene::loadLevel(std::string levelFile)
 {

@@ -6,9 +6,9 @@ NPC_Character::NPC_Character(Model* model, glm::vec3 position, glm::quat orienta
 	addComponent(new ModelComponent(model));
 	addComponent(new AI_Component);
 
-	m_playerPosition = PassInPlayerState::GetPlayerPosition();
+	//m_playerPosition = PassInPlayerState::GetPlayerPosition();
 	//m_playerNPCDistance = getComponent<AI_Component>()->CalculateDistanceBetweenTwoObjects(m_playerPosition, position);
-	m_playerNPCDistance = getComponent<AI_Component>()->CalculateDistanceBetweenTwoObjects(glm::vec3(0,0,0), glm::vec3(50, 0, 0));
+	//m_playerNPCDistance = getComponent<AI_Component>()->CalculateDistanceBetweenTwoObjects(glm::vec3(0,0,0), glm::vec3(50, 0, 0));
 }
 NPC_Character::~NPC_Character()
 {
@@ -16,6 +16,7 @@ NPC_Character::~NPC_Character()
 
 void NPC_Character::OnUpdate(float dt)
 {
+#if 0
 	//NPCTurn
 	if (TurnState::m_currentTurn == Turn::NPCTurn)
 	{
@@ -65,6 +66,8 @@ void NPC_Character::OnUpdate(float dt)
 		m_arrowNPCDistance = getComponent<AI_Component>()->CalculateDistanceBetweenTwoObjects(glm::vec3(-5, 0, 0), glm::vec3(50, 0, 0));
 		getComponent<AI_Component>()->ExecuteAlgorithm(m_playerNPCDistance, m_arrowNPCDistance);
 	//}
+
+#endif;
 
 	//Do not do anything else since I want to keep same range and same power to hit player, the Get Range and power will change values themselves
 }

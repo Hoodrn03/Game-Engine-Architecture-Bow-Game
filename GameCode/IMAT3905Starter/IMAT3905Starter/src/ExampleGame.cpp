@@ -8,6 +8,11 @@
 #include "TransformComponent.h"
 #include "SceneStateComponent.h"
 
+#include "PlayerCharacter.h"
+#include "NPC_Character.h"
+#include "ArrowObject.h"
+#include "MessageSender.h"
+
 
 //#include <stdio.h>
 #include <string>
@@ -26,7 +31,75 @@ ExampleGame::ExampleGame(IEngineCore* engine) : Game(engine)
 
 void ExampleGame::update(float dt) 
 {
-	m_scene->update(dt); 
+	m_scene->update(dt);
+
+	PlayerCharacter* Player = m_scene->getPlayer();
+	NPC_Character* NPC = m_scene->getNPCharacter();
+
+
+	//Just to start from NPCTurn
+	if (m_tempbool)
+	{
+		TurnState::m_currentTurn = Turn::NPCTurn;
+		m_tempbool = false;
+	}
+
+	if (NPC != nullptr && Player != nullptr)
+	{
+		if (TurnState::m_currentTurn == Turn::NPCTurn)
+		{
+			//Pass in boolean is hit player or not here
+
+			float l_Angle = NPC->getComponent<AI_Component>()->GetRandomAngle();
+			float l_fPower = NPC->getComponent<AI_Component>()->GetRandomPower();
+
+			glm::vec3 velocity = NPC->getComponent<AI_Component>()->ConvertAnglesToVelocity(l_Angle);
+
+			m_scene->m_AddEnemyArrow(2);
+			m_scene->m_SetEnemyArrowMoving(l_fPower / 100, velocity);
+
+			//After execution
+			TurnState::m_currentTurn = Turn::WaitingTurn; //waiting turn
+			TurnState::m_previousTurn = Turn::NPCTurn;  // npc turn
+		}
+
+		//hit ground
+		if (m_scene->m_CollisionDetector.m_GetGroundHit())
+		{
+			//If it was NPC arrow
+			if (TurnState::m_previousTurn == Turn::NPCTurn)
+			{
+				ArrowObject* arrow = m_scene->getLatestArrow();
+				glm::vec3 l_arrowPosition = arrow->getComponent<TransformComponent>()->m_position;
+				glm::vec3 l_NPCPosition = NPC->getComponent<TransformComponent>()->m_position;
+				glm::vec3 l_PlayerPosition = Player->getComponent<TransformComponent>()->m_position;
+
+				float l_fArrowNPCDistance = NPC->getComponent<AI_Component>()->CalculateDistanceBetweenTwoObjects(l_arrowPosition, l_NPCPosition);
+				float l_playerNPCDistance = NPC->getComponent<AI_Component>()->CalculateDistanceBetweenTwoObjects(l_PlayerPosition, l_NPCPosition);
+				NPC->getComponent<AI_Component>()->ExecuteAlgorithm(l_playerNPCDistance, l_fArrowNPCDistance);
+			}
+		}
+		if (m_scene->m_CollisionDetector.m_GetPlayerHit())
+		{
+			//Need to test out the behaviour of AI to see how it keeps dealing with this stuff
+			//Right now get angle and get power will basically stay in almost same range as before, so this should work
+			//But if not as planned, I'll change algorithm
+
+			//If it was NPC arrow
+			if (TurnState::m_previousTurn == Turn::NPCTurn)
+			{
+				ArrowObject* arrow = m_scene->getLatestArrow();
+				glm::vec3 l_arrowPosition = arrow->getComponent<TransformComponent>()->m_position;
+				glm::vec3 l_NPCPosition = NPC->getComponent<TransformComponent>()->m_position;
+				glm::vec3 l_PlayerPosition = Player->getComponent<TransformComponent>()->m_position;
+
+				float l_fArrowNPCDistance = NPC->getComponent<AI_Component>()->CalculateDistanceBetweenTwoObjects(l_arrowPosition, l_NPCPosition);
+				float l_playerNPCDistance = NPC->getComponent<AI_Component>()->CalculateDistanceBetweenTwoObjects(l_PlayerPosition, l_NPCPosition);
+				NPC->getComponent<AI_Component>()->ExecuteAlgorithm(l_playerNPCDistance, l_fArrowNPCDistance);
+			}
+		}
+	}
+
 
 	if (m_iMouseButtons == 1)
 	{
