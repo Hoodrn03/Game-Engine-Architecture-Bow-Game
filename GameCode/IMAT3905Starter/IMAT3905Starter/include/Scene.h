@@ -7,8 +7,11 @@
 #include "PlayerCharacter.h"
 #include "IEngineCore.h"
 
-#include <string>
+#include "ArrowObject.h"
 
+#include "NPC_Character.h"
+#include <string>
+#include <queue>
 
 //class Model;
 class ModelManager;
@@ -42,6 +45,12 @@ public:
 	std::vector <glm::vec3> mapPoints1;
 	std::vector <glm::vec3> mapPoints2;
 
+	void m_AddArrow(); 
+
+	void m_AddArrow(int index);
+
+	void m_SetArrowMoving(); 
+
 private:
 
 	/*! \var USed to ensure a level is loaded. */
@@ -55,6 +64,8 @@ private:
 
 	/*! \var A list of game objects within the game. */
 	std::vector<GameObject*> v_gameObjects;
+
+	std::vector<ArrowObject*> v_Arrows;
 
 	/*! \var The model manager used to load all of the game's models. */
 	ModelManager* m_theModelManager;
