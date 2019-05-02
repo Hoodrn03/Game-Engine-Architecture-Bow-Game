@@ -267,7 +267,14 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 
 	mapPoints2.clear();
 	mapPoints2.push_back(glm::vec3(-50, 0, 0));
-	mapPoints2.push_back(glm::vec3(50, 0, 0));
+	mapPoints2.push_back(glm::vec3(10, 0, 0));
+	mapPoints2.push_back(glm::vec3(35, 20, 0));
+	mapPoints2.push_back(glm::vec3(65, 0, 0));
+	mapPoints2.push_back(glm::vec3(60, 0, 0));
+	mapPoints2.push_back(glm::vec3(60, 0, 0));
+	mapPoints2.push_back(glm::vec3(60, 0, 0));
+	mapPoints2.push_back(glm::vec3(60, 0, 0));
+	mapPoints2.push_back(glm::vec3(60, 0, 0));
 
 	return loadOK;
 }
