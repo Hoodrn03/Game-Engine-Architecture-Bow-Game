@@ -23,6 +23,9 @@ Scene::Scene(std::string filename, ModelManager* theModelManager, IEngineCore* e
 	m_levelLoaded = loadLevelJSON(filename);
 
 	m_CollisionDetector.m_SetPlayerObject(getPlayer());
+	m_CollisionDetector.m_SetEnemyObject(getNPCharacter()); 
+
+	m_CollisionDetector.m_SetMainMapPoints(mapPoints1); 
 
 	engineCore->getMouseState(m_mouseX, m_mouseY, m_mouseButtons);
 
@@ -50,7 +53,10 @@ void Scene::update(float dt)
 		v_Arrows[i]->OnUpdate(dt);
 	}
 
-	std::cout << std::boolalpha << m_CollisionDetector.m_CheckForLineColl(mapPoints1.at(0), mapPoints1.at(1)) << std::endl;
+	m_CollisionDetector.m_Update(); 
+
+	std::cout << std::boolalpha << m_CollisionDetector.m_GetEnemyHit() << std::endl; 
+	std::cout << std::boolalpha << m_CollisionDetector.m_GetPlayerHit() << std::endl; 
 
 }
 
@@ -248,11 +254,11 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		int m_enemyIndex = 2;
 		if (i == m_playerIndex)
 		{
-			v_gameObjects.push_back(new PlayerCharacter(model, position, orientation));
+			v_gameObjects.push_back(new PlayerCharacter(model, position, orientation, 2.f, 2.5f));
 		}
 		else if (i == m_enemyIndex)
 		{
-			v_gameObjects.push_back(new NPC_Character(model, position, orientation));
+			v_gameObjects.push_back(new NPC_Character(model, position, orientation, 2.f, 2.5f));
 		}
 		else
 		{
@@ -302,7 +308,7 @@ void Scene::m_AddArrow()
 
 void Scene::m_AddArrow(int index)
 {
-	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position + glm::vec3(0, 1, 0), glm::quat(0, 1, 0, 0));
+	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position + glm::vec3(3, 1, 0), glm::quat(0, 1, 0, 0));
 
 	m_CollisionDetector.m_SetCurrArrowObject(temp); 
 

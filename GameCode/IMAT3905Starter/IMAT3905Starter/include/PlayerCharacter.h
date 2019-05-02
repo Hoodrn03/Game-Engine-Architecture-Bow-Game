@@ -31,6 +31,8 @@ public:
 	/*! \fn Constructor. */
 	PlayerCharacter(Model* model, glm::vec3 position, glm::quat orientation);
 	
+	PlayerCharacter(Model* model, glm::vec3 position, glm::quat orientation, float height, float width);
+
 	/*! \fn Deconstructor. */
 	~PlayerCharacter();
 	
