@@ -38,7 +38,6 @@ Scene::~Scene()
 
 void Scene::update(float dt)
 {
-
 	for (unsigned int i = 0; i < v_gameObjects.size(); i++)
 	{
 		v_gameObjects[i]->OnUpdate(dt); 
@@ -48,7 +47,6 @@ void Scene::update(float dt)
 	{
 		v_Arrows[i]->OnUpdate(dt);
 	}
-
 }
 
 void Scene::render(IEngineCore* engineCore)
@@ -243,9 +241,14 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		std::cout << x << "," << y << "," << z << std::endl;
 
 		// todo - fix this to be data dependent
+		int m_enemyIndex = 2;
 		if (i == m_playerIndex)
 		{
 			v_gameObjects.push_back(new PlayerCharacter(model, position, orientation));
+		}
+		else if (i == m_enemyIndex)
+		{
+			v_gameObjects.push_back(new NPC_Character(model, position, orientation));
 		}
 		else
 		{

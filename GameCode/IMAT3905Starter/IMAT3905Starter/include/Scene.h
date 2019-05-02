@@ -9,6 +9,7 @@
 
 #include "ArrowObject.h"
 
+#include "NPC_Character.h"
 #include <string>
 #include <queue>
 
