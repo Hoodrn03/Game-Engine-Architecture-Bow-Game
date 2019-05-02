@@ -24,27 +24,31 @@ float CollisionDetection::m_CalcDist(glm::vec3 pointOne, glm::vec3 pointTwo)
 
 bool CollisionDetection::m_CheckForObjectBoxColl(GameObject* objectToCheck)
 {
-	// Create Local Variables. 
-
-	float l_fArrowX, l_fArrowY;
-
-	float l_fOtherObjX, l_fOtherObjY, l_fOtherObjWidth, l_fOtherObjHeight;
-
-	l_fArrowX = m_CurrentArrowObject->getComponent<TransformComponent>()->m_position.x;
-	l_fArrowY = m_CurrentArrowObject->getComponent<TransformComponent>()->m_position.y;
-
-	l_fOtherObjX = objectToCheck->getComponent<TransformComponent>()->m_position.x;
-	l_fOtherObjY = objectToCheck->getComponent<TransformComponent>()->m_position.y;
-
-	l_fOtherObjWidth = 10.f;
-	l_fOtherObjHeight = 10.f;
-
-	// Check for collision. 
-
-	if (((l_fArrowX > l_fOtherObjX) && (l_fArrowY > l_fOtherObjY)) &&
-		((l_fArrowX < l_fOtherObjX + l_fOtherObjWidth) && (l_fArrowY < l_fOtherObjY + l_fOtherObjHeight)))
+	if (m_CurrentArrowObject != nullptr)
 	{
-		return true;
+		// Create Local Variables. 
+
+		float l_fArrowX, l_fArrowY;
+
+		float l_fOtherObjX, l_fOtherObjY, l_fOtherObjWidth, l_fOtherObjHeight;
+
+		l_fArrowX = m_CurrentArrowObject->getComponent<TransformComponent>()->m_position.x;
+		l_fArrowY = m_CurrentArrowObject->getComponent<TransformComponent>()->m_position.y;
+
+		l_fOtherObjX = objectToCheck->getComponent<TransformComponent>()->m_position.x;
+		l_fOtherObjY = objectToCheck->getComponent<TransformComponent>()->m_position.y;
+
+		l_fOtherObjWidth = 10.f;
+		l_fOtherObjHeight = 10.f;
+
+		// Check for collision. 
+
+		if (((l_fArrowX > l_fOtherObjX) && (l_fArrowY > l_fOtherObjY)) &&
+			((l_fArrowX < l_fOtherObjX + l_fOtherObjWidth) && (l_fArrowY < l_fOtherObjY + l_fOtherObjHeight)))
+		{
+			return true;
+		}
+
 	}
 
 	return false;
@@ -53,27 +57,30 @@ bool CollisionDetection::m_CheckForObjectBoxColl(GameObject* objectToCheck)
 bool CollisionDetection::m_CheckForLineColl(glm::vec3 pointOne, glm::vec3 pointTwo)
 {
 	// Create Local Variables
-
-	float l_fCollBuffer = 0.1f;
-
-	float l_fArrowX, l_fArrowY;
-
-	l_fArrowX = m_CurrentArrowObject->getComponent<TransformComponent>()->m_position.x;
-	l_fArrowY = m_CurrentArrowObject->getComponent<TransformComponent>()->m_position.y;
-
-	float l_fLineLength = m_CalcDist(pointOne, pointTwo); 
-
-	float l_fDistOne = m_CalcDist(glm::vec3(l_fArrowX, l_fArrowY, 0), pointOne);
-	float l_fDistTwo = m_CalcDist(glm::vec3(l_fArrowX, l_fArrowY, 0), pointTwo);
-
-	// Check For Collision 
-
-	if ((l_fDistOne + l_fDistTwo >= l_fLineLength - l_fCollBuffer) && (l_fDistOne + l_fDistTwo <= l_fLineLength + l_fCollBuffer))
+	if (m_CurrentArrowObject != nullptr)
 	{
-		return true; 
-	}
 
-	return false;
+		float l_fCollBuffer = 0.1f;
+
+		float l_fArrowX, l_fArrowY;
+
+		l_fArrowX = m_CurrentArrowObject->getComponent<TransformComponent>()->m_position.x;
+		l_fArrowY = m_CurrentArrowObject->getComponent<TransformComponent>()->m_position.y;
+
+		float l_fLineLength = m_CalcDist(pointOne, pointTwo);
+
+		float l_fDistOne = m_CalcDist(glm::vec3(l_fArrowX, l_fArrowY, 0), pointOne);
+		float l_fDistTwo = m_CalcDist(glm::vec3(l_fArrowX, l_fArrowY, 0), pointTwo);
+
+		// Check For Collision 
+
+		if ((l_fDistOne + l_fDistTwo >= l_fLineLength - l_fCollBuffer) && (l_fDistOne + l_fDistTwo <= l_fLineLength + l_fCollBuffer))
+		{
+			return true;
+		}
+
+	}
+		return false;
 }
 
 void CollisionDetection::m_Update()

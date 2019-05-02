@@ -49,6 +49,9 @@ void Scene::update(float dt)
 	{
 		v_Arrows[i]->OnUpdate(dt);
 	}
+
+	std::cout << std::boolalpha << m_CollisionDetector.m_CheckForLineColl(mapPoints1.at(0), mapPoints1.at(1)) << std::endl;
+
 }
 
 void Scene::render(IEngineCore* engineCore)
@@ -288,7 +291,9 @@ void Scene::m_AddArrow()
 
 void Scene::m_AddArrow(int index)
 {
-	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position, glm::quat(0, 0, 0, 0));
+	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position, glm::quat(0, 1, 0, 0));
+
+	m_CollisionDetector.m_SetCurrArrowObject(temp); 
 
 	v_Arrows.push_back(temp);
 }
