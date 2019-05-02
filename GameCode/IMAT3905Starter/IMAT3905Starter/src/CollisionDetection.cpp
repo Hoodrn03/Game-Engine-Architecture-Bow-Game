@@ -60,7 +60,7 @@ bool CollisionDetection::m_CheckForLineColl(glm::vec3 pointOne, glm::vec3 pointT
 	if (m_CurrentArrowObject != nullptr)
 	{
 
-		float l_fCollBuffer = 0.1f;
+		float l_fCollBuffer = 0.01f;
 
 		float l_fArrowX, l_fArrowY;
 
@@ -76,6 +76,8 @@ bool CollisionDetection::m_CheckForLineColl(glm::vec3 pointOne, glm::vec3 pointT
 
 		if ((l_fDistOne + l_fDistTwo >= l_fLineLength - l_fCollBuffer) && (l_fDistOne + l_fDistTwo <= l_fLineLength + l_fCollBuffer))
 		{
+			m_CurrentArrowObject->getComponent<Velocity>()->m_HitObject(true); 
+
 			return true;
 		}
 

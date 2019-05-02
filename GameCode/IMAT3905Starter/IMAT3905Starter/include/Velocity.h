@@ -88,7 +88,7 @@ public:
 				m_fPower = 0;
 			}
 
-			std::cout << "Speed : " << m_fSpeed << " , Power : " << m_fPower << std::endl;
+			// std::cout << "Speed : " << m_fSpeed << " , Power : " << m_fPower << std::endl;
 
 			m_ThisObject->getComponent<TransformComponent>()->m_position += l_MoveAmount;
 		}
@@ -101,9 +101,12 @@ public:
 
 	void m_HitObject(bool stopMoving)
 	{
-		if (stopMoving == true)
+		if (this != nullptr)
 		{
-			m_bCollided = true; 
+			if (stopMoving == true)
+			{
+				m_bCollided = true;
+			}
 		}
 	}
 

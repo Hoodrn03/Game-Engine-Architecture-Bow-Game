@@ -18,7 +18,7 @@ void ArrowObject::OnUpdate(float dt)
 	{
 		getComponent<Velocity>()->OnUpdate(dt);
 
-		std::cout << getComponent<TransformComponent>()->m_position.x << ", " << getComponent<TransformComponent>()->m_position.y << std::endl;
+		std::cout << "X : " << getComponent<TransformComponent>()->m_position.x << ", Y : " << getComponent<TransformComponent>()->m_position.y << std::endl;
 	}
 	if (getComponent<Gravity>() != nullptr)
 	{
@@ -55,8 +55,6 @@ void ArrowObject::m_FireArrow(bool fired, float power, float powerDec, glm::vec3
 				addComponent(new Gravity(this));
 
 				m_bOnce = false; 
-
-				std::cout << "Hello There" << std::endl;
 			}
 		}
 	}

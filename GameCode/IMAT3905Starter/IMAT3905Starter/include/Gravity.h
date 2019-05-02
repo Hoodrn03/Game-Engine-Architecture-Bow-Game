@@ -46,6 +46,11 @@ public:
 		{
 			m_ThisObject->getComponent<TransformComponent>()->m_position += (-m_fGravity * dt);
 		}
+
+		if (m_ThisObject->getComponent<TransformComponent>()->m_position.y <= 0)
+		{
+			m_ThisObject->getComponent<TransformComponent>()->m_position.y = 0; 
+		}
 	}
 	
 	void OnMessage(const std::string m)

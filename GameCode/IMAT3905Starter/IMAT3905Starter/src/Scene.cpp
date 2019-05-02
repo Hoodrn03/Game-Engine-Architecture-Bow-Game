@@ -261,8 +261,8 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 	}
 
 	mapPoints1.clear(); 
-	mapPoints1.push_back(glm::vec3(-50, 0, 0));
-	mapPoints1.push_back(glm::vec3(50, 0, 0));
+	mapPoints1.push_back(glm::vec3(0, 0, 0));
+	mapPoints1.push_back(glm::vec3(100, 0, 0));
 
 
 	mapPoints2.clear();
@@ -298,7 +298,7 @@ void Scene::m_AddArrow()
 
 void Scene::m_AddArrow(int index)
 {
-	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position, glm::quat(0, 1, 0, 0));
+	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position + glm::vec3(0, 1, 0), glm::quat(0, 1, 0, 0));
 
 	m_CollisionDetector.m_SetCurrArrowObject(temp); 
 

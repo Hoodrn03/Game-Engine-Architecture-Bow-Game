@@ -5,6 +5,7 @@
 
 #include "GameObject.h"
 #include "TransformComponent.h"
+#include "Velocity.h"
 
 class CollisionDetection
 {
