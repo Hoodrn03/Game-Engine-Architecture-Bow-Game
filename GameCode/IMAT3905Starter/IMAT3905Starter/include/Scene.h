@@ -13,6 +13,10 @@
 #include <string>
 #include <queue>
 
+// Physics
+#include "CollisionDetection.h"
+
+
 //class Model;
 class ModelManager;
 
@@ -43,6 +47,10 @@ public:
 	/*! \fn Used to gain access to the player object. */
 	PlayerCharacter* getPlayer();
 
+	NPC_Character* getNPCharacter(); 
+
+	CollisionDetection m_CollisionDetector; 
+
 	void m_AddArrow(); 
 
 	void m_AddArrow(int index);
@@ -55,7 +63,9 @@ private:
 	bool m_levelLoaded{ false };
 
 	/*! \var The index to find the player from a list of game objects. */
-	int m_playerIndex{ 1 };
+	int m_playerIndex = 1;
+
+	int m_iNPCIndex = 2; 
 
 	/*! \var Used to get the background object. */
 	GameObject* m_playerBackground;

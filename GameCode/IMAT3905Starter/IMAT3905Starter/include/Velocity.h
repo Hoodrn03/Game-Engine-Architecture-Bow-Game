@@ -28,7 +28,7 @@ public:
 	{
 		m_Direction = m_CalculateMoveVector();
 
-		std::cout << m_Direction.x << ", " << m_Direction.y << ", " << m_Direction.z << std::endl;
+		// std::cout << m_Direction.x << ", " << m_Direction.y << ", " << m_Direction.z << std::endl;
 	}
 
 	Velocity(GameObject* connectedObject, glm::vec3 position, float speed, float power) : 
@@ -36,7 +36,7 @@ public:
 	{
 		m_Direction = m_CalculateMoveVector();
 
-		m_fDecelAmount = m_fPower * 0.001f; 
+		m_fDecelAmount = m_fPower * 0.01f; 
 
 		// std::cout << m_Direction.x << ", " << m_Direction.y << ", " << m_Direction.z << std::endl;
 	}
@@ -67,29 +67,44 @@ private:
 	// Vector Normal
 	glm::vec3 m_Direction = { 0.f, 0.f, 0.f };
 
+	bool m_bCollided = false; 
+
 public:
 
 	// Member Functions 
 
 	void OnUpdate(float dt)
 	{
-		glm::vec3 l_MoveAmount = (m_Direction * (m_fSpeed * dt));
-		
-		if (m_fSpeed > 0)
+		if (m_bCollided != true)
 		{
-			m_fSpeed -= m_fDecelAmount;
-		}
-		else if (m_fSpeed < 0)
-		{
-			m_fSpeed = 0; 
-		}
+			glm::vec3 l_MoveAmount = glm::vec3(m_Direction.x * (m_fSpeed * dt), m_Direction.y * (m_fPower * dt), 0);
 
-		m_ThisObject->getComponent<TransformComponent>()->m_position += l_MoveAmount;
+			if (m_fPower > 0)
+			{
+				m_fPower -= m_fDecelAmount;
+			}
+			else if (m_fPower < 0)
+			{
+				m_fPower = 0;
+			}
+
+			std::cout << "Speed : " << m_fSpeed << " , Power : " << m_fPower << std::endl;
+
+			m_ThisObject->getComponent<TransformComponent>()->m_position += l_MoveAmount;
+		}
 	}
 
 	void OnMessage(const std::string m)
 	{
 
+	}
+
+	void m_HitObject(bool stopMoving)
+	{
+		if (stopMoving == true)
+		{
+			m_bCollided = true; 
+		}
 	}
 
 	glm::vec3 m_CalculateMoveVector()

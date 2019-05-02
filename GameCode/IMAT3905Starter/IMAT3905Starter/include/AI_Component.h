@@ -61,7 +61,7 @@ public:
 		if (!PassInPlayerState::m_isPlayerHit)
 		{
 			m_angle = RandomFloat(m_minAngleRange, m_maxAngleRange);
-			std::cout << "m_minAngleRange = " << m_minAngleRange << " m_maxAngleRange " << m_maxAngleRange << std::endl;
+			// std::cout << "m_minAngleRange = " << m_minAngleRange << " m_maxAngleRange " << m_maxAngleRange << std::endl;
 		}
 		//if hit, make slight randomness when NPC shoots at the same target
 		if (PassInPlayerState::m_isPlayerHit)
@@ -77,7 +77,7 @@ public:
 		if (!PassInPlayerState::m_isPlayerHit)
 		{
 			m_power = RandomFloat(m_minPowerRange, m_maxPowerRange);
-			std::cout << "m_minPowerRange = " << m_minPowerRange << " m_maxPowerRange " << m_maxPowerRange << std::endl;
+			// std::cout << "m_minPowerRange = " << m_minPowerRange << " m_maxPowerRange " << m_maxPowerRange << std::endl;
 		}
 		//if hit, make slight randomness when NPC shoots at the same target
 		if (PassInPlayerState::m_isPlayerHit)
@@ -109,7 +109,7 @@ public:
 	*/
 	void ExecuteAlgorithm(float playerNPCDistance, float arrowNPCDistance)
 	{
-		std::cout << "m_angle = " << m_angle << " m_power = " << m_power << std::endl;
+		// std::cout << "m_angle = " << m_angle << " m_power = " << m_power << std::endl;
 		//If undershot
 		if (playerNPCDistance >= arrowNPCDistance)
 		{
@@ -135,7 +135,7 @@ public:
 			}
 		}
 
-		std::cout << "m_angle = " << m_angle << "m_power = " << m_power << std::endl;
+		// std::cout << "m_angle = " << m_angle << "m_power = " << m_power << std::endl;
 	}
 
 	/*! \fn Used to increase range.

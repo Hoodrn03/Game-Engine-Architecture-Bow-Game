@@ -11,7 +11,8 @@ void MouseInputs::getInitialXY(double x, double y)
 		initX = x;
 		initY = y;
 
-		std::cout << initX << " " << initY << std::endl;
+		// std::cout << initX << " " << initY << std::endl;
+		
 		getInit = false; 
 		initGot = true; 
 	}
@@ -24,7 +25,8 @@ void MouseInputs::getLastXY(double x, double y)
 		lastX = x;
 		lastY = y;
 
-		std::cout << "SEC " << lastX << " " << lastY << std::endl;
+		// std::cout << "SEC " << lastX << " " << lastY << std::endl;
+		
 		getLast = false; 
 		lastGot = true; 
 	}
@@ -39,7 +41,7 @@ glm::vec2 MouseInputs::getDifference()
 		finalX = lastX - initX;
 		finalY = lastY - initY;
 
-		std::cout << "FINAL " << finalX << " " << finalY << std::endl;
+		// std::cout << "FINAL " << finalX << " " << finalY << std::endl;
 		
 		initGot = false; 
 		lastGot = false; 
@@ -47,24 +49,6 @@ glm::vec2 MouseInputs::getDifference()
 
 	return glm::vec2(finalX, finalY);
 }
-
-/*void MouseInputs::getDifference()
-{
-	double finalX = 0, finalY = 0;
-
-	if (initGot && lastGot)
-	{
-		finalX = lastX - initX;
-		finalY = lastY - initY;
-
-		//std::cout << "FINAL " << finalX << " " << finalY << std::endl;
-
-		std::cout << "FINAL " << finalX << "," << finalY << std::endl;
-
-		initGot = false;
-		lastGot = false;
-	}
-}*/
 
 void MouseInputs::checkButtonPress(int button)
 {

@@ -15,9 +15,9 @@ void CameraObject::OnUpdate(float dt, int currentTurn)
 {
 	int turn = currentTurn; 
 
-	if (turn == 0) { setToPlayer(); std::cout << "Here";  } //set camera position to player if players turn
-	if (turn == 1) { setToEnemy(); std::cout << "Here Too"; } //set camera position to enemy if enemy's turn 
-	if (turn == 2) { setToArrow(); std::cout << "Here Three";} //set camera position to arrow if enemy or player arrow is fired. 
+	if (turn == 0) { setToPlayer(); } //set camera position to player if players turn
+	if (turn == 1) { setToEnemy(); } //set camera position to enemy if enemy's turn 
+	if (turn == 2) { setToArrow(); } //set camera position to arrow if enemy or player arrow is fired. 
 }
 
 void CameraObject::setToPlayer()
