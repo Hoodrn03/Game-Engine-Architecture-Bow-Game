@@ -46,6 +46,8 @@ public:
 
 	/*! \fn Used to gain access to the player object. */
 	PlayerCharacter* getPlayer();
+	std::vector <glm::vec3> mapPoints1;
+	std::vector <glm::vec3> mapPoints2;
 
 	NPC_Character* getNPCharacter(); 
 
