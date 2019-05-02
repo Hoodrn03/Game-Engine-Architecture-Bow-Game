@@ -44,7 +44,8 @@ public:
 	PlayerCharacter* getPlayer();
 	std::vector <glm::vec3> mapPoints1;
 	std::vector <glm::vec3> mapPoints2;
-
+	std::vector <glm::vec3> width;
+	std::vector <glm::vec3> height;
 	void m_AddArrow(); 
 
 	void m_AddArrow(int index);
