@@ -27,6 +27,8 @@ class TransformComponent : public Component
 public:
 	glm::vec3 m_position;
 	glm::vec3 m_scale;
+	float height = 0;
+	float width = 0;
 
 private:
 #if NO_ROLL
