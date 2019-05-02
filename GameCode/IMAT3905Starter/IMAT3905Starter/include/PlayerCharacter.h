@@ -15,12 +15,6 @@
 /*! \class This will act as the player's main object. */
 class PlayerCharacter : public GameObject
 {
-	/*! \enum The current state of the camera. */
-	enum class CameraViewState { 
-		firstPersonCamera, /*!< Use to make a first person camera. */
-		thirdPersonCamera /*!< Use to make a third person camera. */
-	};
-
 	//Dominic: I will need those states in my turn state decision
 	/*! \enum The current state of the camera. */
 	enum class NewCameraViewState
@@ -45,9 +39,6 @@ public:
 
 	/*! \fn Used to react to certain inputs within the game loop. */
 	void OnMessage(const std::string msg) override;
-
-	/*! \fn Used to set the camera's position using the current transform. */
-	void SetCameraPositionFromTransformComponent(TransformComponent* tc);
 	
 	//Dominic's note: this is used because of Text to screen feature, Pete uses this to update text rendered on screen
 	//with fps limitations in ExampleGame render() function
@@ -60,13 +51,8 @@ public:
 
 private:
 
-	/*! \var The current state of the player's camera. */
-	CameraViewState m_cameraState{ CameraViewState::thirdPersonCamera };
-
 	//Dominic
 
-	/*! \var The current state of the player's camera. */
-	NewCameraViewState m_newCameraState{ NewCameraViewState::PlayerView };
 	/*! \var Player Health */
 	unsigned short m_playerHealth = 100;
 };

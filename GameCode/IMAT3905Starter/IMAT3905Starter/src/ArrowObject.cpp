@@ -17,6 +17,8 @@ void ArrowObject::OnUpdate(float dt)
 	if (getComponent<Velocity>() != nullptr)
 	{
 		getComponent<Velocity>()->OnUpdate(dt);
+
+		std::cout << getComponent<TransformComponent>()->m_position.x << ", " << getComponent<TransformComponent>()->m_position.y << std::endl;
 	}
 	if (getComponent<Gravity>() != nullptr)
 	{
@@ -49,7 +51,7 @@ void ArrowObject::m_FireArrow(bool fired, float power, float powerDec, glm::vec3
 		{
 			if (m_bOnce == true)
 			{
-				addComponent(new Velocity(this, mouseInput, power, powerDec));
+				addComponent(new Velocity(this, glm::vec3(1, 1, 0), 2, 1));
 				addComponent(new Gravity(this));
 
 				m_bOnce = false; 
