@@ -1,11 +1,11 @@
 {
   "GameObjects": [
       {"name": "gnd", "model": "ground6.obj", "position": [0.0,0.0,0.0]},  
-         {"name": "pCone1", "model": "player.obj", "position": [-0.3,0.5,0.45], "height&width": [6.4,1.2,0.0]},
-	 	  {"name": "pCube1", "model": "arrow.obj", "position": [2.3,1.5,0], "height&width": [1.1,0.1,0.0]},
-	  {"name": "pSphere1", "model": "bow.obj", "position": [0.5,1.5,0.0]}, 
-	    {"name": "pCone1", "model": "enemy.obj", "position": [49.7,0.5,0], "height&width": [6.4,1.2,0.0]},
-      {"name": "pCylinder1", "model": "enemyarrow.obj", "position": [47.7,1.8,0]},
-      {"name": "pSphere2", "model": "enemybow.obj", "position": [49.5,1.5,0.0]}
+         {"name": "player", "model": "player.obj", "position": [-0.3,0.5,0.45], "height&width": [6.4,1.2,0.0]},
+	 	  {"name": "arrow", "model": "arrow.obj", "position": [2.3,1.5,0], "height&width": [1.1,0.1,0.0]},
+	  {"name": "bow", "model": "bow.obj", "position": [0.5,1.5,0.0]}, 
+	    {"name": "enemy", "model": "enemy.obj", "position": [49.7,0.5,0], "height&width": [6.4,1.2,0.0]},
+      {"name": "enemyarrow", "model": "enemyarrow.obj", "position": [47.7,1.8,0]},
+      {"name": "enemybow", "model": "enemybow.obj", "position": [49.5,1.5,0.0]}
   ]
 }
