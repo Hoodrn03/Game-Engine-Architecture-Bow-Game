@@ -27,6 +27,10 @@ public:
 	/*! \fn Used to gain access to the current input handler. */
 	InputHandler* getInputHandler();
 
+	virtual void SetMouseInput(int mouseInput) = 0;
+
+	virtual void SetXY(double mouseX, double mouseY) = 0;
+
 protected:
 
 	/*! \var The game core the game is running on; (Which platform).*/

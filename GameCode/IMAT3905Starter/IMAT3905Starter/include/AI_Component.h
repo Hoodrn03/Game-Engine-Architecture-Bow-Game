@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
 
 class AI_Component : public Component
 {
@@ -35,7 +36,7 @@ public:
 	/*! \fn Construtor.*/
 	AI_Component()
 	{
-
+		srand(time(NULL));
 	}
 
 	/*! \fn Used to update this class every frame.
@@ -60,6 +61,7 @@ public:
 		if (!PassInPlayerState::m_isPlayerHit)
 		{
 			m_angle = RandomFloat(m_minAngleRange, m_maxAngleRange);
+			std::cout << "m_minAngleRange = " << m_minAngleRange << " m_maxAngleRange " << m_maxAngleRange << std::endl;
 		}
 		//if hit, make slight randomness when NPC shoots at the same target
 		if (PassInPlayerState::m_isPlayerHit)
@@ -75,6 +77,7 @@ public:
 		if (!PassInPlayerState::m_isPlayerHit)
 		{
 			m_power = RandomFloat(m_minPowerRange, m_maxPowerRange);
+			std::cout << "m_minPowerRange = " << m_minPowerRange << " m_maxPowerRange " << m_maxPowerRange << std::endl;
 		}
 		//if hit, make slight randomness when NPC shoots at the same target
 		if (PassInPlayerState::m_isPlayerHit)
@@ -86,7 +89,6 @@ public:
 	*/
 	float RandomFloat(float minimum, float maximum)
 	{
-		srand(time(NULL));
 		float rangeSpan = maximum - minimum;
 		return ((float)rand() / RAND_MAX) * rangeSpan + minimum; //from current min - current max
 	}
@@ -107,10 +109,11 @@ public:
 	*/
 	void ExecuteAlgorithm(float playerNPCDistance, float arrowNPCDistance)
 	{
+		std::cout << "m_angle = " << m_angle << " m_power = " << m_power << std::endl;
 		//If undershot
 		if (playerNPCDistance >= arrowNPCDistance)
 		{
-			if (m_angle < 135)
+			if (m_angle <= (m_minAngleRange + m_maxAngleRange) / 2)
 			{
 				IncreaseRange(m_minPowerRange, m_maxPowerRange, MAX_POWER, 10);
 			}
@@ -122,7 +125,7 @@ public:
 		//If overshot
 		else if (playerNPCDistance < arrowNPCDistance)
 		{
-			if (m_angle < 135)
+			if (m_angle <= (m_minAngleRange + m_maxAngleRange) / 2)
 			{
 				DecreaseRange(m_minPowerRange, m_maxPowerRange, MIN_POWER, 10);
 			}
@@ -131,6 +134,8 @@ public:
 				DecreaseRange(m_minAngleRange, m_maxAngleRange, MIN_ANGLE, 15);
 			}
 		}
+
+		std::cout << "m_angle = " << m_angle << "m_power = " << m_power << std::endl;
 	}
 
 	/*! \fn Used to increase range.
@@ -139,7 +144,7 @@ public:
 	*Param Three float absolute maximum range value.
 	*Param Four float increment of range.
 	*/
-	void IncreaseRange(float minRange, float maxRange, float absoluteMaxValue, float increment)
+	void IncreaseRange(float &minRange, float &maxRange, float absoluteMaxValue, float increment)
 	{
 		//If minimum reached current maximum range
 		if (minRange + increment > maxRange)
@@ -169,7 +174,7 @@ public:
 	*Param Three float absolute minimum range value.
 	*Param Four float decrement of range.
 	*/
-	void DecreaseRange(float minRange, float maxRange, float absoluteMinValue, float decrement)
+	void DecreaseRange(float &minRange, float &maxRange, float absoluteMinValue, float decrement)
 	{
 		//Decrease range of power
 		//Until it hits min
@@ -190,5 +195,15 @@ public:
 		{
 			maxRange -= decrement;
 		}
+	}
+
+	float GetAngle()
+	{
+		return m_angle;
+	}
+
+	float GetStartingAngle()
+	{
+		return MIN_ANGLE;
 	}
 };

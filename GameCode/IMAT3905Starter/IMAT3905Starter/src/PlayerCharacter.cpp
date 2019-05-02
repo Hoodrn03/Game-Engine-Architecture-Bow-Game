@@ -1,5 +1,7 @@
 #include "PlayerCharacter.h"
 
+
+// constructor
 PlayerCharacter::PlayerCharacter(Model* model, glm::vec3 position, glm::quat orientation)
 {
 	TransformComponent* tc = new TransformComponent(position, orientation);
@@ -12,12 +14,14 @@ PlayerCharacter::PlayerCharacter(Model* model, glm::vec3 position, glm::quat ori
 
 	PassInPlayerState::SetPlayerPosition(position);
 }
+
 PlayerCharacter::~PlayerCharacter()
 {
 }
 
 void PlayerCharacter::OnUpdate(float dt)
 {
+
 	//Dominic
 
 	//Since camera and turns will be switched automatically, I don't think camera will require any messages to be swithed on Onmessage function
@@ -61,6 +65,7 @@ void PlayerCharacter::OnUpdate(float dt)
 		m_newCameraState = NewCameraViewState::NPCView;
 	}
 }
+
 void PlayerCharacter::OnMessage(const std::string msg)
 {
 

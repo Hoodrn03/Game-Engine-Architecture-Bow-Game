@@ -107,6 +107,9 @@ bool GLFW_EngineCore::runEngine(Game* game)			// was Game&
 		game->update(0.1f); // update game logic
 		game->render(); // prepare game to send info to the renderer in engine core
 
+		game->SetMouseInput(m_mouseButtons);
+		game->SetXY(m_mouseX, m_mouseY);
+
 		// swap buffers
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
@@ -519,4 +522,8 @@ void GLFW_EngineCore::getMouseState(double& mouseX, double& mouseY, int& mouseBu
 	mouseX = m_mouseX;
 	mouseY = m_mouseY;
 	mouseButtons = m_mouseButtons;	
+	
+	/*g_mouseX = m_mouseX;
+	g_mouseY = m_mouseY;
+	g_mouseButtons = m_mouseButtons;*/
 }

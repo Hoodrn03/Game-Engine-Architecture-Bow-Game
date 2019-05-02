@@ -42,5 +42,10 @@ private:
 	unsigned short m_NPCHealth = 100;
 	/*! \var Boolen to analyse arrow position when hit something */
 	bool m_analyseCurrentShot = false;
+
+	float m_currentAngle;
+	float m_desiredAngle;
+	float m_startingAngle;
+	glm::vec3 m_arrowPosition;
 };
 
