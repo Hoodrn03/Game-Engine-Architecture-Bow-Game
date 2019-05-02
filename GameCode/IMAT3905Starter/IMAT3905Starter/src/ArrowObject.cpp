@@ -8,6 +8,8 @@ ArrowObject::ArrowObject(Model* model, glm::vec3 position, glm::quat orientation
 
 	addComponent(tc);
 	addComponent(new ModelComponent(model));
+
+	addComponent(new CameraComponent()); 
 }
 
 void ArrowObject::OnUpdate(float dt)
@@ -19,6 +21,11 @@ void ArrowObject::OnUpdate(float dt)
 	if (getComponent<Gravity>() != nullptr)
 	{
 		getComponent<Gravity>()->OnUpdate(dt);
+	}
+
+	if (getComponent<CameraComponent>() != nullptr)
+	{
+		getComponent<CameraComponent>()->setPosition(getComponent<TransformComponent>()->m_position + glm::vec3(0.f, 0.f, 5.f));
 	}
 }
 

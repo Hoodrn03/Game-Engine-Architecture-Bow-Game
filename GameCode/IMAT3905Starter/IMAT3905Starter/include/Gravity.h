@@ -31,7 +31,7 @@ private:
 
 	// Data Members 
 
-	glm::vec3 m_fGravity = { 0.f, 0.98f, 0.f };
+	glm::vec3 m_fGravity = { 0.f, 0.098f, 0.f };
 
 	GameObject * m_ThisObject = nullptr;
 

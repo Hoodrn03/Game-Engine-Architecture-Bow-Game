@@ -44,6 +44,11 @@ void Scene::update(float dt)
 		v_gameObjects[i]->OnUpdate(dt); 
 	}
 
+	for (unsigned int i = 0; i < v_Arrows.size(); i++)
+	{
+		v_Arrows[i]->OnUpdate(dt);
+	}
+
 }
 
 void Scene::render(IEngineCore* engineCore)
@@ -100,7 +105,14 @@ void Scene::render(IEngineCore* engineCore)
 	engineCore->renderColouredBackground(redValue, greenValue, blueValue);
 
 	// update the camera
-	engineCore->setCamera(getPlayer()->getComponent<CameraComponent>());
+	if (v_Arrows.size() <= 0)
+	{
+		engineCore->setCamera(getPlayer()->getComponent<CameraComponent>());
+	}
+	else
+	{
+		engineCore->setCamera(v_Arrows.at(v_Arrows.size() - 1)->getComponent<CameraComponent>()); 
+	}
 
 	// draw the game objects
 	for (auto gameObject : v_gameObjects)
@@ -346,7 +358,7 @@ void Scene::m_AddArrow()
 
 void Scene::m_AddArrow(int index)
 {
-	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position + glm::vec3(10, 10, 0), glm::quat(0, 0, 0, 0));
+	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position, glm::quat(0, 0, 0, 0));
 
 	v_Arrows.push_back(temp);
 }
@@ -357,7 +369,7 @@ void Scene::m_SetArrowMoving()
 	{
 		unsigned int l_iIndex = v_Arrows.size() - 1;
 
-		v_Arrows.at(l_iIndex)->m_FireArrow(true, 20, 10, glm::vec3(1, 1, 0));
+		v_Arrows.at(l_iIndex)->m_FireArrow(true, 0.8f, 0.08f, glm::vec3(2, 0.5, 0));
 	}
 }
 

@@ -23,7 +23,6 @@ ExampleGame::ExampleGame(IEngineCore* engine) : Game(engine)
 
 }
 
-bool m_bOnce = true; 
 
 void ExampleGame::update(float dt) 
 {
@@ -31,12 +30,7 @@ void ExampleGame::update(float dt)
 
 	if (m_iMouseButtons == 1)
 	{
-		if (m_bOnce == true)
-		{
-			m_scene->m_AddArrow(1);
-
-			m_bOnce = false; 
-		}
+		m_scene->m_AddArrow(1);
 	}
 	else if (m_iMouseButtons == 0)
 	{

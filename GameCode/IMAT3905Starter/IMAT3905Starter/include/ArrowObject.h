@@ -5,6 +5,8 @@
 #include "ModelComponent.h"
 #include "SceneStateComponent.h"
 
+#include "CameraComponent.h"
+
 // Physics. 
 #include "Velocity.h"
 #include "Gravity.h"
