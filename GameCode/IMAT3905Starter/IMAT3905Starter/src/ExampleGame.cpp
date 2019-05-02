@@ -8,6 +8,7 @@
 #include "TransformComponent.h"
 #include "SceneStateComponent.h"
 
+
 //#include <stdio.h>
 #include <string>
 //#include <vector>
@@ -16,27 +17,41 @@
 #include <sstream>
 //#include "InputHandler.h"
 
-
 ExampleGame::ExampleGame(IEngineCore* engine) : Game(engine)
 {
 	Initialise();
+
 }
+
 
 void ExampleGame::update(float dt) 
 {
+	m_scene->update(dt); 
+
+	if (m_iMouseButtons == 1)
+	{
+		m_scene->m_AddArrow(1);
+	}
+	else if (m_iMouseButtons == 0)
+	{
+		m_scene->m_SetArrowMoving();
+	}
+
 	int desiredSceneIndex = m_scene->getPlayer()->getComponent<SceneStateComponent>()->GetSceneIndex();
 
 	if (desiredSceneIndex != m_sceneIndex)
 	{
 		delete m_scene;
 
+
 		m_sceneIndex = desiredSceneIndex;
 
-		m_scene = new Scene(m_levelNames[m_sceneIndex], m_theModelManager, m_engineInterfacePtr);
+		m_scene = new Scene(m_sLevelNames[m_sceneIndex], m_theModelManager, m_engineInterfacePtr);
 		m_inputHandler = new InputHandler(m_scene->getPlayer());  // or have a set function perhaps better then a new instance!
 
 	}
 }
+
 void ExampleGame::render() 
 {
 	m_scene->render(m_engineInterfacePtr);
@@ -58,16 +73,21 @@ void ExampleGame::render()
 	}
 }
 
-//bool ExampleGame::loadLevelJSON(std::string levelJSONFile)
-//{
-//
-//
-//}
-
 void ExampleGame::Initialise()
 {
 	m_theModelManager = new ModelManager();	// singleton later...
-	m_scene = new Scene(m_levelNames[m_sceneIndex], m_theModelManager, m_engineInterfacePtr);
+	m_scene = new Scene(m_sLevelNames[m_sceneIndex], m_theModelManager, m_engineInterfacePtr);
 	m_inputHandler = new InputHandler(m_scene->getPlayer());
+
 }
 
+void ExampleGame::SetMouseInput(int mouseInput)
+{
+	m_iMouseButtons = mouseInput;
+}
+
+void ExampleGame::SetXY(double mouseX, double mouseY)
+{
+	m_dMouseX = mouseX;
+	m_dMouseY = mouseY; 
+}

@@ -38,6 +38,15 @@ Scene::~Scene()
 
 void Scene::update(float dt)
 {
+	for (unsigned int i = 0; i < v_gameObjects.size(); i++)
+	{
+		v_gameObjects[i]->OnUpdate(dt); 
+	}
+
+	for (unsigned int i = 0; i < v_Arrows.size(); i++)
+	{
+		v_Arrows[i]->OnUpdate(dt);
+	}
 }
 
 void Scene::render(IEngineCore* engineCore)
@@ -94,10 +103,26 @@ void Scene::render(IEngineCore* engineCore)
 	engineCore->renderColouredBackground(redValue, greenValue, blueValue);
 
 	// update the camera
-	engineCore->setCamera(getPlayer()->getComponent<CameraComponent>());
+	if (v_Arrows.size() <= 0)
+	{
+		engineCore->setCamera(getPlayer()->getComponent<CameraComponent>());
+	}
+	else
+	{
+		engineCore->setCamera(v_Arrows.at(v_Arrows.size() - 1)->getComponent<CameraComponent>()); 
+	}
 
 	// draw the game objects
 	for (auto gameObject : v_gameObjects)
+	{
+		Model* model = gameObject->getComponent<ModelComponent>()->getModel();
+		glm::mat4 matrix = gameObject->getComponent<TransformComponent>()->getModelMatrix();
+		engineCore->drawModel(model, matrix);
+
+	}
+
+	// draw the game objects
+	for (auto gameObject : v_Arrows)
 	{
 		Model* model = gameObject->getComponent<ModelComponent>()->getModel();
 		glm::mat4 matrix = gameObject->getComponent<TransformComponent>()->getModelMatrix();
@@ -160,7 +185,7 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		}
 		else
 		{
-			model = m_theModelManager->getModel("assets/models/cone.obj");			// change to error model later....
+			model = m_theModelManager->getModel("assets/models/nothing.obj");			// change to error model later....
 		}
 
 		// test for no model later!!!!!
@@ -180,6 +205,17 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 
 
 		glm::vec3 position(x, y, z);
+
+		float h, w, d;
+		// get the dimention node
+		const Json::Value dimNode = gameObjects[i]["height&width"];
+		h = dimNode[0].asFloat(); // get float
+		w = dimNode[1].asFloat();
+		d = dimNode[2].asFloat();
+
+
+
+		glm::vec3 dimention(h, w, d);
 
 		glm::quat orientation(1.0f, 0.0f, 0.0f, 0.0f);
 
@@ -219,10 +255,6 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 			v_gameObjects.push_back(new StaticEnvironmentObject(model, position, orientation));
 		}
 	}
-
-
-
-
 
 	return loadOK;
 }
@@ -320,10 +352,29 @@ PlayerCharacter* Scene::getPlayer()
 	return (PlayerCharacter*)v_gameObjects[m_playerIndex];
 }
 
+void Scene::m_AddArrow()
+{
+	ArrowObject * temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), glm::vec3(0, 0, 0), glm::quat(0, 0, 0, 0));
 
+	v_Arrows.push_back(temp); 
+}
 
+void Scene::m_AddArrow(int index)
+{
+	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position, glm::quat(0, 0, 0, 0));
 
+	v_Arrows.push_back(temp);
+}
 
+void Scene::m_SetArrowMoving()
+{
+	if (v_Arrows.size() > 0)
+	{
+		unsigned int l_iIndex = v_Arrows.size() - 1;
+
+		v_Arrows.at(l_iIndex)->m_FireArrow(true, 0.8f, 0.08f, glm::vec3(2, 0.5, 0));
+	}
+}
 
 void Scene::loadLevel(std::string levelFile)
 {

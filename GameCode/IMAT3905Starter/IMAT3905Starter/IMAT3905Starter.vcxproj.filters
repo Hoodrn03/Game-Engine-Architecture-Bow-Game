@@ -69,10 +69,20 @@
     <ClCompile Include="src\SceneStateComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CollisionDetection.cpp">
     <ClCompile Include="src\NPC_Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\MessageSender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ArrowObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MouseInputs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -140,6 +150,13 @@
     <ClInclude Include="include\SceneStateComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Gravity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Velocity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CollisionDetection.h">
     <ClInclude Include="include\NPC_Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -147,6 +164,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\MessageSender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ArrowObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MouseInputs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,6 +6,9 @@
 #include "ModelComponent.h"
 #include "SceneStateComponent.h"
 
+#include "Gravity.h"
+#include "Velocity.h"
+
 //Dominic
 #include "MessageSender.h"
 

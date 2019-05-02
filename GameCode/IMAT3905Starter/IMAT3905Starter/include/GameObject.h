@@ -44,6 +44,9 @@ public:
 	virtual void OnUpdate(float dt) = 0;
 	virtual void OnMessage(const std::string m) = 0;
 
+
+	std::string m_sTag = "Null";
+
 private:
 
 	/*! \var The list of components currently on this game object. */

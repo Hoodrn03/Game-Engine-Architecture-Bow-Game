@@ -62,7 +62,7 @@ public:
 	void setPosition(const glm::vec3 newPosition)
 	{
 		m_position = newPosition;
-	}
+	}//
 
 	/*! \fn Used to set the camera's orientation.
 	*Param One vec3 The new orientation. 
