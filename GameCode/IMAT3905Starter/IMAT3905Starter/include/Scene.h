@@ -53,6 +53,8 @@ public:
 
 	CollisionDetection m_CollisionDetector; 
 
+	std::vector <glm::vec3> width;
+	std::vector <glm::vec3> height;
 	void m_AddArrow(); 
 
 	void m_AddArrow(int index);
