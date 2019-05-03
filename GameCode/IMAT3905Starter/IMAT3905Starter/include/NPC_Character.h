@@ -18,6 +18,8 @@ public:
 	*/
 	NPC_Character(Model* model, glm::vec3 position, glm::quat orientation);
 
+	NPC_Character(Model* model, glm::vec3 position, glm::quat orientation, float height, float width);
+
 	/*! \fn Deconstructor. */
 	~NPC_Character();
 

@@ -24,7 +24,7 @@ float CollisionDetection::m_CalcDist(glm::vec3 pointOne, glm::vec3 pointTwo)
 
 bool CollisionDetection::m_CheckForObjectBoxColl(GameObject* objectToCheck)
 {
-	if (m_CurrentArrowObject != nullptr)
+	if ((m_CurrentArrowObject != nullptr) && (objectToCheck != nullptr))
 	{
 		// Create Local Variables. 
 
@@ -38,17 +38,27 @@ bool CollisionDetection::m_CheckForObjectBoxColl(GameObject* objectToCheck)
 		l_fOtherObjX = objectToCheck->getComponent<TransformComponent>()->m_position.x;
 		l_fOtherObjY = objectToCheck->getComponent<TransformComponent>()->m_position.y;
 
-		l_fOtherObjWidth = 10.f;
-		l_fOtherObjHeight = 10.f;
+		l_fOtherObjWidth = objectToCheck->getComponent<TransformComponent>()->width;
+		l_fOtherObjHeight = objectToCheck->getComponent<TransformComponent>()->height;
 
 		// Check for collision. 
 
 		if (((l_fArrowX > l_fOtherObjX) && (l_fArrowY > l_fOtherObjY)) &&
 			((l_fArrowX < l_fOtherObjX + l_fOtherObjWidth) && (l_fArrowY < l_fOtherObjY + l_fOtherObjHeight)))
 		{
+			std::cout << "I iz filly gud" << std::endl; 
+
+			m_CurrentArrowObject->getComponent<Velocity>()->m_HitObject(true); 
+			m_CurrentArrowObject->getComponent<Gravity>()->m_HitObject(true);
+
 			return true;
 		}
 
+	}
+
+	else
+	{
+		std::cout << "NULLPTR ALERT GITOUT" << std::endl;
 	}
 
 	return false;
@@ -77,6 +87,7 @@ bool CollisionDetection::m_CheckForLineColl(glm::vec3 pointOne, glm::vec3 pointT
 		if ((l_fDistOne + l_fDistTwo >= l_fLineLength - l_fCollBuffer) && (l_fDistOne + l_fDistTwo <= l_fLineLength + l_fCollBuffer))
 		{
 			m_CurrentArrowObject->getComponent<Velocity>()->m_HitObject(true); 
+			m_CurrentArrowObject->getComponent<Gravity>()->m_HitObject(true);
 
 			return true;
 		}

@@ -16,6 +16,23 @@ PlayerCharacter::PlayerCharacter(Model* model, glm::vec3 position, glm::quat ori
 	PassInPlayerState::SetPlayerPosition(position);
 }
 
+PlayerCharacter::PlayerCharacter(Model* model, glm::vec3 position, glm::quat orientation, float height, float width)
+{
+	TransformComponent* tc = new TransformComponent(position, orientation);
+
+	tc->height = height;
+	tc->width = width; 
+
+	addComponent(tc);
+	addComponent(new ModelComponent(model));
+
+	addComponent(new CameraComponent());
+
+	addComponent(new SceneStateComponent());
+
+	PassInPlayerState::SetPlayerPosition(position);
+}
+
 PlayerCharacter::~PlayerCharacter()
 {
 }

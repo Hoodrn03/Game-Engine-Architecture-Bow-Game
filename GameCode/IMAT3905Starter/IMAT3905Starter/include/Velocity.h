@@ -92,6 +92,7 @@ public:
 
 			m_ThisObject->getComponent<TransformComponent>()->m_position += l_MoveAmount;
 		}
+		
 	}
 
 	void OnMessage(const std::string m)
