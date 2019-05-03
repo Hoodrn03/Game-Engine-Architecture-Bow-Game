@@ -35,26 +35,21 @@ private:
 
 	GameObject * m_ThisObject = nullptr;
 
-	bool m_bCollided = false;
-
 public:
 
 	// Member Functions 
 
 	void OnUpdate(float dt)
 	{
-		if (m_bCollided != true)
+		// This should stop is the connected object is at ground level. 
+		if (m_ThisObject->getComponent<TransformComponent>()->m_position.y > 0)
 		{
-			// This should stop is the connected object is at ground level. 
-			if (m_ThisObject->getComponent<TransformComponent>()->m_position.y > 0)
-			{
-				m_ThisObject->getComponent<TransformComponent>()->m_position += (-m_fGravity * dt);
-			}
+			m_ThisObject->getComponent<TransformComponent>()->m_position += (-m_fGravity * dt);
+		}
 
-			if (m_ThisObject->getComponent<TransformComponent>()->m_position.y <= 0)
-			{
-				m_ThisObject->getComponent<TransformComponent>()->m_position.y = 0;
-			}
+		if (m_ThisObject->getComponent<TransformComponent>()->m_position.y <= 0)
+		{
+			m_ThisObject->getComponent<TransformComponent>()->m_position.y = 0; 
 		}
 	}
 	
@@ -62,14 +57,5 @@ public:
 	{
 
 	}
-	void m_HitObject(bool stopMoving)
-	{
-		if (this != nullptr)
-		{
-			if (stopMoving == true)
-			{
-				m_bCollided = true;
-			}
-		}
-	}
+
 };

@@ -23,9 +23,6 @@ Scene::Scene(std::string filename, ModelManager* theModelManager, IEngineCore* e
 	m_levelLoaded = loadLevelJSON(filename);
 
 	m_CollisionDetector.m_SetPlayerObject(getPlayer());
-	m_CollisionDetector.m_SetEnemyObject(getNPCharacter()); 
-
-	m_CollisionDetector.m_SetMainMapPoints(mapPoints1); 
 
 	engineCore->getMouseState(m_mouseX, m_mouseY, m_mouseButtons);
 
@@ -53,10 +50,7 @@ void Scene::update(float dt)
 		v_Arrows[i]->OnUpdate(dt);
 	}
 
-	m_CollisionDetector.m_Update(); 
-
-	std::cout << std::boolalpha << m_CollisionDetector.m_GetEnemyHit() << std::endl; 
-	std::cout << std::boolalpha << m_CollisionDetector.m_GetPlayerHit() << std::endl; 
+	std::cout << std::boolalpha << m_CollisionDetector.m_CheckForLineColl(mapPoints1.at(0), mapPoints1.at(1)) << std::endl;
 
 }
 
@@ -254,11 +248,11 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		int m_enemyIndex = 2;
 		if (i == m_playerIndex)
 		{
-			v_gameObjects.push_back(new PlayerCharacter(model, position, orientation, 2.f, 2.5f));
+			v_gameObjects.push_back(new PlayerCharacter(model, position, orientation));
 		}
 		else if (i == m_enemyIndex)
 		{
-			v_gameObjects.push_back(new NPC_Character(model, position, orientation, 2.f, 2.5f));
+			v_gameObjects.push_back(new NPC_Character(model, position, orientation));
 		}
 		else
 		{
@@ -272,24 +266,20 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 
 
 	mapPoints2.clear();
-	mapPoints2.push_back(glm::vec3(0, 0, 0));
+	mapPoints2.push_back(glm::vec3(-50, 0, 0));
+	mapPoints2.push_back(glm::vec3(10, 0, 0));
+	mapPoints2.push_back(glm::vec3(35, 20, 0));
+	mapPoints2.push_back(glm::vec3(65, 0, 0));
 	mapPoints2.push_back(glm::vec3(60, 0, 0));
-	mapPoints2.push_back(glm::vec3(67, 8, 0));
-	mapPoints2.push_back(glm::vec3(73, 8, 0));
-	mapPoints2.push_back(glm::vec3(80, 0, 0));
-	mapPoints2.push_back(glm::vec3(100, 0, 0));
+	mapPoints2.push_back(glm::vec3(60, 0, 0));
+	mapPoints2.push_back(glm::vec3(60, 0, 0));
+	mapPoints2.push_back(glm::vec3(60, 0, 0));
+	mapPoints2.push_back(glm::vec3(60, 0, 0));
 
-	height.clear();
-	height.push_back(glm::vec3(0, 0, 0));
-	height.push_back(glm::vec3(1, 0, 0));
-
-	width.clear();
-	width.push_back(glm::vec3(0, 0, 0));
-	width.push_back(glm::vec3(0, 0.7, 0));
 	return loadOK;
 }
 
-NPC_Character* Scene::getNPCharacter()
+NPC_Character* Scene::getNPCCharacter()
 {
 	return (NPC_Character*)v_gameObjects[m_iNPCIndex];
 }
@@ -297,6 +287,11 @@ NPC_Character* Scene::getNPCharacter()
 PlayerCharacter* Scene::getPlayer()
 {
 	return (PlayerCharacter*)v_gameObjects[m_playerIndex];
+}
+
+ArrowObject* Scene::getLatestArrow()
+{
+	return v_Arrows[v_Arrows.size() - 1];
 }
 
 void Scene::m_AddArrow()
@@ -308,7 +303,7 @@ void Scene::m_AddArrow()
 
 void Scene::m_AddArrow(int index)
 {
-	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position + glm::vec3(3, 1, 0), glm::quat(0, 1, 0, 0));
+	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/arrow.obj"), getPlayer()->getComponent<TransformComponent>()->m_position + glm::vec3(0, 1, 0), glm::quat(0, 1, 0, 0));
 
 	m_CollisionDetector.m_SetCurrArrowObject(temp); 
 
@@ -324,6 +319,26 @@ void Scene::m_SetArrowMoving()
 		v_Arrows.at(l_iIndex)->m_FireArrow(true, 1.f, 1.f, glm::vec3(0.5, 0.5, 0));
 	}
 }
+
+void Scene::m_SetEnemyArrowMoving(float powerDec, glm::vec3 Direction)
+{
+	if (v_Arrows.size() > 0)
+	{
+		unsigned int l_iIndex = v_Arrows.size() - 1;
+
+		v_Arrows.at(l_iIndex)->m_FireArrow(true, 1.f, powerDec, Direction);
+	}
+}
+
+void Scene::m_AddEnemyArrow(int index)
+{
+	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/enemyarrow.obj"), getNPCCharacter()->getComponent<TransformComponent>()->m_position + glm::vec3(0, 1, 0), glm::quat(1, 0, 0, 0));
+
+	m_CollisionDetector.m_SetCurrArrowObject(temp);
+
+	v_Arrows.push_back(temp);
+}
+
 
 void Scene::loadLevel(std::string levelFile)
 {

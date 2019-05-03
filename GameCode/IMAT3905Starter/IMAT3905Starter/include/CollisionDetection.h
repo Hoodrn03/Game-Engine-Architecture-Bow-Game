@@ -6,7 +6,6 @@
 #include "GameObject.h"
 #include "TransformComponent.h"
 #include "Velocity.h"
-#include "Gravity.h"
 
 class CollisionDetection
 {
