@@ -30,15 +30,6 @@ public:
 	float height = 0;
 	float width = 0;
 
-	void m_SetHeight(float newHeight)
-	{
-		height = newHeight;
-	}
-	void m_SetWidth(float newWidth)
-	{
-		width = newWidth;
-	}
-
 private:
 #if NO_ROLL
 

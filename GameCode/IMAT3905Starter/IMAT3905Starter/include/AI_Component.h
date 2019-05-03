@@ -114,34 +114,32 @@ public:
 	*/
 	void ExecuteAlgorithm(float playerNPCDistance, float arrowNPCDistance)
 	{
-		if (this != nullptr)
+		// std::cout << "m_angle = " << m_angle << " m_power = " << m_power << std::endl;
+		//If undershot
+		if (playerNPCDistance >= arrowNPCDistance)
 		{
-			// std::cout << "m_angle = " << m_angle << " m_power = " << m_power << std::endl;
-			//If undershot
-			if (playerNPCDistance >= arrowNPCDistance)
+			if (m_angle <= (m_minAngleRange + m_maxAngleRange) / 2)
 			{
-				if (m_angle <= (m_minAngleRange + m_maxAngleRange) / 2)
-				{
-					IncreaseRange(m_minPowerRange, m_maxPowerRange, MAX_POWER, 10);
-				}
-				else
-				{
-					IncreaseRange(m_minAngleRange, m_maxAngleRange, MAX_ANGLE, 15);
-				}
+				IncreaseRange(m_minPowerRange, m_maxPowerRange, MAX_POWER, 10);
 			}
-			//If overshot
-			else if (playerNPCDistance < arrowNPCDistance)
+			else
 			{
-				if (m_angle <= (m_minAngleRange + m_maxAngleRange) / 2)
-				{
-					DecreaseRange(m_minPowerRange, m_maxPowerRange, MIN_POWER, 10);
-				}
-				else
-				{
-					DecreaseRange(m_minAngleRange, m_maxAngleRange, MIN_ANGLE, 15);
-				}
+				IncreaseRange(m_minAngleRange, m_maxAngleRange, MAX_ANGLE, 15);
 			}
 		}
+		//If overshot
+		else if (playerNPCDistance < arrowNPCDistance)
+		{
+			if (m_angle <= (m_minAngleRange + m_maxAngleRange) / 2)
+			{
+				DecreaseRange(m_minPowerRange, m_maxPowerRange, MIN_POWER, 10);
+			}
+			else
+			{
+				DecreaseRange(m_minAngleRange, m_maxAngleRange, MIN_ANGLE, 15);
+			}
+		}
+
 		// std::cout << "m_angle = " << m_angle << "m_power = " << m_power << std::endl;
 	}
 
