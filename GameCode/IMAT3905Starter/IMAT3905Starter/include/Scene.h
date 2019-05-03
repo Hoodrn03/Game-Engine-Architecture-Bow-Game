@@ -49,7 +49,7 @@ public:
 	std::vector <glm::vec3> mapPoints1;
 	std::vector <glm::vec3> mapPoints2;
 
-	NPC_Character* getNPCharacter(); 
+	NPC_Character* getNPCCharacter(); 
 
 	ArrowObject* getLatestArrow();
 

@@ -5,6 +5,7 @@ NPC_Character::NPC_Character(Model* model, glm::vec3 position, glm::quat orienta
 	addComponent(new TransformComponent(position, orientation));
 	addComponent(new ModelComponent(model));
 	addComponent(new AI_Component);
+	addComponent(new CameraComponent());
 
 	//m_playerPosition = PassInPlayerState::GetPlayerPosition();
 	//m_playerNPCDistance = getComponent<AI_Component>()->CalculateDistanceBetweenTwoObjects(m_playerPosition, position);
@@ -16,6 +17,10 @@ NPC_Character::~NPC_Character()
 
 void NPC_Character::OnUpdate(float dt)
 {
+	if (getComponent<CameraComponent>() != nullptr)
+	{
+		getComponent<CameraComponent>()->setPosition(getComponent<TransformComponent>()->m_position + glm::vec3(0.f, 0.f, 10.f));
+	}
 #if 0
 	//NPCTurn
 	if (TurnState::m_currentTurn == Turn::NPCTurn)
@@ -73,5 +78,15 @@ void NPC_Character::OnUpdate(float dt)
 }
 void NPC_Character::OnMessage(const std::string msg)
 {
+}
+
+void NPC_Character::ReduceNPCHealthBy(unsigned short damage)
+{
+	m_NPCHealth -= damage;
+}
+
+unsigned short NPC_Character::GetNPCHealth()
+{
+	return m_NPCHealth;
 }
 

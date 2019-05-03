@@ -279,7 +279,7 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 	return loadOK;
 }
 
-NPC_Character* Scene::getNPCharacter()
+NPC_Character* Scene::getNPCCharacter()
 {
 	return (NPC_Character*)v_gameObjects[m_iNPCIndex];
 }
@@ -332,7 +332,7 @@ void Scene::m_SetEnemyArrowMoving(float powerDec, glm::vec3 Direction)
 
 void Scene::m_AddEnemyArrow(int index)
 {
-	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/enemyarrow.obj"), getNPCharacter()->getComponent<TransformComponent>()->m_position + glm::vec3(0, 1, 0), glm::quat(1, 0, 0, 0));
+	ArrowObject* temp = new ArrowObject(m_theModelManager->getModel("assets/models/enemyarrow.obj"), getNPCCharacter()->getComponent<TransformComponent>()->m_position + glm::vec3(0, 1, 0), glm::quat(1, 0, 0, 0));
 
 	m_CollisionDetector.m_SetCurrArrowObject(temp);
 

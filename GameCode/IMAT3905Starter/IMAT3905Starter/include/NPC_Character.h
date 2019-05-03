@@ -31,6 +31,15 @@ public:
 	*/
 	void OnMessage(const std::string msg) override;
 
+	/*! \fn Used to Reduce health points.
+	*Param One unsigned short damage dealth to health.
+	*/
+	void ReduceNPCHealthBy(unsigned short damage);
+
+	/*! \fn Health Getter
+	*/
+	unsigned short GetNPCHealth();
+
 private:
 	/*! \var Player Character Object position */
 	glm::vec3 m_playerPosition;
@@ -43,9 +52,9 @@ private:
 	/*! \var Boolen to analyse arrow position when hit something */
 	bool m_analyseCurrentShot = false;
 
-	float m_currentAngle;
+	/*float m_currentAngle;
 	float m_desiredAngle;
 	float m_startingAngle;
-	glm::vec3 m_arrowPosition;
+	glm::vec3 m_arrowPosition;*/
 };
 

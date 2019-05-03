@@ -41,3 +41,13 @@ glm::vec3 PlayerCharacter::getEulerAngles()
 	return tc->getEulerAngles();
 }
 
+void PlayerCharacter::ReducePlayerHealthBy(unsigned short damage)
+{
+	m_playerHealth -= damage;
+}
+
+unsigned short PlayerCharacter::GetPlayerHealth()
+{
+	return m_playerHealth;
+}
+

@@ -48,6 +48,15 @@ public:
 	/*! \fn USed to get Euler Angles? */
 	glm::vec3 getEulerAngles();
 
+	/*! \fn Used to Reduce health points.
+	*Param One unsigned short damage dealth to health.
+	*/
+	void ReducePlayerHealthBy(unsigned short damage);
+
+	/*! \fn Health Getter
+	*/
+	unsigned short GetPlayerHealth();
+
 
 private:
 
