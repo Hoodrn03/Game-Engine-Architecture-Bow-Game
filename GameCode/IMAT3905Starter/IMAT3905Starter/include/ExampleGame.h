@@ -61,4 +61,10 @@ private:
 	int m_iMouseButtons = 0; /*! < Used to check the current state of the mouse buttons.  */
 	double m_dMouseX = 0; /*! < The current X position of the mouse. */
 	double m_dMouseY = 0; /*! < The current Y position of the mouse. */
+
+	bool m_tempbool = true;
+	float timer = 0;
+
+	bool m_bPlayerWon = false;
+	bool m_bNPCWon = false;
 };

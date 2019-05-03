@@ -49,17 +49,21 @@ public:
 	std::vector <glm::vec3> mapPoints1;
 	std::vector <glm::vec3> mapPoints2;
 
-	NPC_Character* getNPCharacter(); 
+	NPC_Character* getNPCCharacter(); 
+
+	ArrowObject* getLatestArrow();
 
 	CollisionDetection m_CollisionDetector; 
 
-	std::vector <glm::vec3> width;
-	std::vector <glm::vec3> height;
 	void m_AddArrow(); 
 
 	void m_AddArrow(int index);
 
-	void m_SetArrowMoving(); 
+	void m_AddEnemyArrow(int index);
+
+	void m_SetArrowMoving();
+
+	void m_SetEnemyArrowMoving(float powerDec, glm::vec3 mouseInput);
 
 private:
 

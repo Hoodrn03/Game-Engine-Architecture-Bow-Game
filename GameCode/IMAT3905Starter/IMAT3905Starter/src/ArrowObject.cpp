@@ -43,7 +43,7 @@ void ArrowObject::MouseInput(glm::vec2 xy)
 	m_CurrMouseInput.y = xy.y; 
 }
 
-void ArrowObject::m_FireArrow(bool fired, float power, float powerDec, glm::vec3 mouseInput)
+void ArrowObject::m_FireArrow(bool fired, float speed, float power, glm::vec3 mouseInput)
 {
 	if (this != nullptr)
 	{
@@ -51,7 +51,7 @@ void ArrowObject::m_FireArrow(bool fired, float power, float powerDec, glm::vec3
 		{
 			if (m_bOnce == true)
 			{
-				addComponent(new Velocity(this, glm::vec3(1, 1, 0), 2, 1));
+				addComponent(new Velocity(this, glm::vec3(mouseInput), speed, power));
 				addComponent(new Gravity(this));
 
 				m_bOnce = false; 

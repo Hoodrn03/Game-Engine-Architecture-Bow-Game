@@ -55,35 +55,40 @@ public:
 	}
 	/*! \fn Used to get random angle to inputs.
 	*/
-	void GetRandomAngle()
+	float GetRandomAngle()
 	{
-		//if not hit, use range
-		if (!PassInPlayerState::m_isPlayerHit)
-		{
-			m_angle = RandomFloat(m_minAngleRange, m_maxAngleRange);
-			// std::cout << "m_minAngleRange = " << m_minAngleRange << " m_maxAngleRange " << m_maxAngleRange << std::endl;
-		}
-		//if hit, make slight randomness when NPC shoots at the same target
-		if (PassInPlayerState::m_isPlayerHit)
-		{
-			m_angle = RandomFloat(m_angle - 5, m_angle + 5);
-		}
+		m_angle = RandomFloat(m_minAngleRange, m_maxAngleRange);
+		// std::cout << "m_minAngleRange = " << m_minAngleRange << " m_maxAngleRange " << m_maxAngleRange << std::endl;
+
+		return m_angle;
+	}
+	/*! \fn Used to get more stable random angle to inputs.
+	*/
+	float GetStableRandomAngle()
+	{
+		//make slight randomness when NPC shoots at the same target
+		m_angle = RandomFloat(m_angle - 5, m_angle + 5);
+
+		return m_angle;
 	}
 	/*! \fn Used to get random power to inputs.
 	*/
-	void GetRandomPower()
+	float GetRandomPower()
 	{
+		m_power = RandomFloat(m_minPowerRange, m_maxPowerRange);
+		// std::cout << "m_minPowerRange = " << m_minPowerRange << " m_maxPowerRange " << m_maxPowerRange << std::endl;
+
+		return m_power;
+	}
+	/*! \fn Used to get more stable random power to inputs.
+	*/
+	float GetStableRandomPower()
+	{
+		//make slight randomness when NPC shoots at the same target
 		//if not hit, use range
-		if (!PassInPlayerState::m_isPlayerHit)
-		{
-			m_power = RandomFloat(m_minPowerRange, m_maxPowerRange);
-			// std::cout << "m_minPowerRange = " << m_minPowerRange << " m_maxPowerRange " << m_maxPowerRange << std::endl;
-		}
-		//if hit, make slight randomness when NPC shoots at the same target
-		if (PassInPlayerState::m_isPlayerHit)
-		{
-			m_power = RandomFloat(m_power - 5, m_power + 5);
-		}
+		m_power = RandomFloat(m_power - 5, m_power + 5);
+
+		return m_power;
 	}
 	/*! \fn General Random function.
 	*/
@@ -109,34 +114,32 @@ public:
 	*/
 	void ExecuteAlgorithm(float playerNPCDistance, float arrowNPCDistance)
 	{
-		if (this != nullptr)
+		// std::cout << "m_angle = " << m_angle << " m_power = " << m_power << std::endl;
+		//If undershot
+		if (playerNPCDistance >= arrowNPCDistance)
 		{
-			// std::cout << "m_angle = " << m_angle << " m_power = " << m_power << std::endl;
-			//If undershot
-			if (playerNPCDistance >= arrowNPCDistance)
+			if (m_angle <= (m_minAngleRange + m_maxAngleRange) / 2)
 			{
-				if (m_angle <= (m_minAngleRange + m_maxAngleRange) / 2)
-				{
-					IncreaseRange(m_minPowerRange, m_maxPowerRange, MAX_POWER, 10);
-				}
-				else
-				{
-					IncreaseRange(m_minAngleRange, m_maxAngleRange, MAX_ANGLE, 15);
-				}
+				IncreaseRange(m_minPowerRange, m_maxPowerRange, MAX_POWER, 10);
 			}
-			//If overshot
-			else if (playerNPCDistance < arrowNPCDistance)
+			else
 			{
-				if (m_angle <= (m_minAngleRange + m_maxAngleRange) / 2)
-				{
-					DecreaseRange(m_minPowerRange, m_maxPowerRange, MIN_POWER, 10);
-				}
-				else
-				{
-					DecreaseRange(m_minAngleRange, m_maxAngleRange, MIN_ANGLE, 15);
-				}
+				IncreaseRange(m_minAngleRange, m_maxAngleRange, MAX_ANGLE, 15);
 			}
 		}
+		//If overshot
+		else if (playerNPCDistance < arrowNPCDistance)
+		{
+			if (m_angle <= (m_minAngleRange + m_maxAngleRange) / 2)
+			{
+				DecreaseRange(m_minPowerRange, m_maxPowerRange, MIN_POWER, 10);
+			}
+			else
+			{
+				DecreaseRange(m_minAngleRange, m_maxAngleRange, MIN_ANGLE, 15);
+			}
+		}
+
 		// std::cout << "m_angle = " << m_angle << "m_power = " << m_power << std::endl;
 	}
 
@@ -207,5 +210,17 @@ public:
 	float GetStartingAngle()
 	{
 		return MIN_ANGLE;
+	}
+
+	glm::vec3 ConvertAnglesToVelocity(float angle)
+	{
+		//X is from 1 to 0, so [90;180] - 90, then divide by 90 so [0;1], make this negative and add 1 to flip [1;0]
+		float x = 1 + (-1 * (angle - 90) / 90);
+		//Y is from 0 to 1, so just [90;180] - 90 and [0;90] divide by 90
+		float y = (angle - 90) / 90;
+
+		return glm::vec3(-x, y, 0);
+
+		//return glm::vec3(-sin(angle), abs(cos(angle)), 0);
 	}
 };
