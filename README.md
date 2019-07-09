@@ -1,4 +1,4 @@
-# Game Engine Game
+# Game Engine Architecture Bow Game
 
 This project will be for the module Game Engine Architecture. The module will 
 require us to design and build a game using a homemade game engine. 
